@@ -1,0 +1,12 @@
+[
+  {
+    "version": "base",
+    "result": "pass",
+    "observed": "PR layout absent on base; baseline reproduction confirmed"
+  },
+  {
+    "version": "target",
+    "result": "pass",
+    "observed": "PR layout emitted identically for ordinary and promoted PR modes; exclusions and metadata instructions correct"
+  }
+]

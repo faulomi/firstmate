@@ -1,0 +1,173 @@
+$ FM_HOME=/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base-home /bin/bash /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base/bin/fm-brief.sh layout-alpha-no-mistakes alpha --mode no-mistakes
+scaffolded: /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base-home/data/layout-alpha-no-mistakes/brief.md (ship, mode=no-mistakes; replace {TASK} and {FIRSTMATE_SPEC})
+exit=0
+
+$ FM_HOME=/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base-home /bin/bash /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base/bin/fm-brief.sh layout-beta-no-mistakes beta --mode no-mistakes
+scaffolded: /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base-home/data/layout-beta-no-mistakes/brief.md (ship, mode=no-mistakes; replace {TASK} and {FIRSTMATE_SPEC})
+exit=0
+
+$ FM_HOME=/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base-home /bin/bash /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base/bin/fm-brief.sh promote-no-mistakes alpha --scout
+scaffolded: /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base-home/data/promote-no-mistakes/brief.md (scout; replace {TASK} and {FIRSTMATE_SPEC})
+exit=0
+
+$ FM_HOME=/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base-home /bin/bash /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base/bin/fm-promote.sh promote-no-mistakes --mode no-mistakes --yolo off
+promoted promote-no-mistakes to ship mode=no-mistakes yolo=off (teardown protection restored)
+wrote ship instructions for mode=no-mistakes: /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base-home/data/promote-no-mistakes/ship-instructions.md
+next: FM_HOME=/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base-home bin/fm-send.sh fm-promote-no-mistakes "$(cat /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base-home/data/promote-no-mistakes/ship-instructions.md)"
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+●  WATCHER DOWN - SUPERVISION IS OFF
+●  1 task(s) in flight, but no watcher has a fresh beacon (last beat: never, grace 300s).
+●  This read-only session should report the lapse, not repair it.
+●  This is a supervision warning only; the guarded operation WILL still run.
+●  Watcher repair belongs to the session holding the fleet lock; do not drain, arm, or repair from this read-only session.
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+exit=0
+
+$ FM_HOME=/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base-home /bin/bash /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base/bin/fm-brief.sh layout-alpha-direct-pr alpha --mode direct-PR
+scaffolded: /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base-home/data/layout-alpha-direct-pr/brief.md (ship, mode=direct-PR; replace {TASK} and {FIRSTMATE_SPEC})
+exit=0
+
+$ FM_HOME=/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base-home /bin/bash /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base/bin/fm-brief.sh layout-beta-direct-pr beta --mode direct-PR
+scaffolded: /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base-home/data/layout-beta-direct-pr/brief.md (ship, mode=direct-PR; replace {TASK} and {FIRSTMATE_SPEC})
+exit=0
+
+$ FM_HOME=/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base-home /bin/bash /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base/bin/fm-brief.sh promote-direct-pr alpha --scout
+scaffolded: /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base-home/data/promote-direct-pr/brief.md (scout; replace {TASK} and {FIRSTMATE_SPEC})
+exit=0
+
+$ FM_HOME=/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base-home /bin/bash /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base/bin/fm-promote.sh promote-direct-pr --mode direct-PR --yolo off
+promoted promote-direct-pr to ship mode=direct-PR yolo=off (teardown protection restored)
+wrote ship instructions for mode=direct-PR: /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base-home/data/promote-direct-pr/ship-instructions.md
+next: FM_HOME=/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base-home bin/fm-send.sh fm-promote-direct-pr "$(cat /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base-home/data/promote-direct-pr/ship-instructions.md)"
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+●  WATCHER DOWN - SUPERVISION IS OFF
+●  2 task(s) in flight, but no watcher has a fresh beacon (last beat: never, grace 300s).
+●  This read-only session should report the lapse, not repair it.
+●  This is a supervision warning only; the guarded operation WILL still run.
+●  Watcher repair belongs to the session holding the fleet lock; do not drain, arm, or repair from this read-only session.
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+exit=0
+
+$ FM_HOME=/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base-home /bin/bash /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base/bin/fm-brief.sh layout-alpha-local-only alpha --mode local-only
+scaffolded: /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base-home/data/layout-alpha-local-only/brief.md (ship, mode=local-only; replace {TASK} and {FIRSTMATE_SPEC})
+exit=0
+
+$ FM_HOME=/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base-home /bin/bash /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base/bin/fm-brief.sh layout-beta-local-only beta --mode local-only
+scaffolded: /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base-home/data/layout-beta-local-only/brief.md (ship, mode=local-only; replace {TASK} and {FIRSTMATE_SPEC})
+exit=0
+
+$ FM_HOME=/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base-home /bin/bash /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base/bin/fm-brief.sh promote-local-only alpha --scout
+scaffolded: /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base-home/data/promote-local-only/brief.md (scout; replace {TASK} and {FIRSTMATE_SPEC})
+exit=0
+
+$ FM_HOME=/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base-home /bin/bash /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base/bin/fm-promote.sh promote-local-only --mode local-only --yolo off
+promoted promote-local-only to ship mode=local-only yolo=off (teardown protection restored)
+wrote ship instructions for mode=local-only: /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base-home/data/promote-local-only/ship-instructions.md
+next: FM_HOME=/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base-home bin/fm-send.sh fm-promote-local-only "$(cat /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base-home/data/promote-local-only/ship-instructions.md)"
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+●  WATCHER DOWN - SUPERVISION IS OFF
+●  3 task(s) in flight, but no watcher has a fresh beacon (last beat: never, grace 300s).
+●  This read-only session should report the lapse, not repair it.
+●  This is a supervision warning only; the guarded operation WILL still run.
+●  Watcher repair belongs to the session holding the fleet lock; do not drain, arm, or repair from this read-only session.
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+exit=0
+
+$ FM_HOME=/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base-home /bin/bash /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base/bin/fm-brief.sh layout-scout alpha --scout
+scaffolded: /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base-home/data/layout-scout/brief.md (scout; replace {TASK} and {FIRSTMATE_SPEC})
+exit=0
+
+$ FM_HOME=/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base-home /bin/bash /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base/bin/fm-brief.sh layout-secondmate --secondmate alpha
+scaffolded: /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base-home/data/layout-secondmate/brief.md (secondmate charter; replace {TASK})
+exit=0
+
+$ FM_HOME=/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base-home /bin/bash /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base/bin/fm-brief.sh layout-secondmate-empty --secondmate --no-projects
+scaffolded: /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/base-home/data/layout-secondmate-empty/brief.md (secondmate charter; replace {TASK})
+exit=0
+
+$ FM_HOME=/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/target-home /bin/bash /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/bin/fm-brief.sh layout-alpha-no-mistakes alpha --mode no-mistakes
+scaffolded: /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/target-home/data/layout-alpha-no-mistakes/brief.md (ship, mode=no-mistakes; replace {TASK} and {FIRSTMATE_SPEC})
+exit=0
+
+$ FM_HOME=/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/target-home /bin/bash /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/bin/fm-brief.sh layout-beta-no-mistakes beta --mode no-mistakes
+scaffolded: /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/target-home/data/layout-beta-no-mistakes/brief.md (ship, mode=no-mistakes; replace {TASK} and {FIRSTMATE_SPEC})
+exit=0
+
+$ FM_HOME=/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/target-home /bin/bash /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/bin/fm-brief.sh promote-no-mistakes alpha --scout
+scaffolded: /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/target-home/data/promote-no-mistakes/brief.md (scout; replace {TASK} and {FIRSTMATE_SPEC})
+exit=0
+
+$ FM_HOME=/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/target-home /bin/bash /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/bin/fm-promote.sh promote-no-mistakes --mode no-mistakes --yolo off
+promoted promote-no-mistakes to ship mode=no-mistakes yolo=off (teardown protection restored)
+wrote ship instructions for mode=no-mistakes: /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/target-home/data/promote-no-mistakes/ship-instructions.md
+next: FM_HOME=/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/target-home bin/fm-send.sh fm-promote-no-mistakes "$(cat /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/target-home/data/promote-no-mistakes/ship-instructions.md)"
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+●  WATCHER DOWN - SUPERVISION IS OFF
+●  1 task(s) in flight, but no watcher has a fresh beacon (last beat: never, grace 300s).
+●  This read-only session should report the lapse, not repair it.
+●  This is a supervision warning only; the guarded operation WILL still run.
+●  Watcher repair belongs to the session holding the fleet lock; do not drain, arm, or repair from this read-only session.
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+exit=0
+
+$ FM_HOME=/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/target-home /bin/bash /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/bin/fm-brief.sh layout-alpha-direct-pr alpha --mode direct-PR
+scaffolded: /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/target-home/data/layout-alpha-direct-pr/brief.md (ship, mode=direct-PR; replace {TASK} and {FIRSTMATE_SPEC})
+exit=0
+
+$ FM_HOME=/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/target-home /bin/bash /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/bin/fm-brief.sh layout-beta-direct-pr beta --mode direct-PR
+scaffolded: /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/target-home/data/layout-beta-direct-pr/brief.md (ship, mode=direct-PR; replace {TASK} and {FIRSTMATE_SPEC})
+exit=0
+
+$ FM_HOME=/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/target-home /bin/bash /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/bin/fm-brief.sh promote-direct-pr alpha --scout
+scaffolded: /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/target-home/data/promote-direct-pr/brief.md (scout; replace {TASK} and {FIRSTMATE_SPEC})
+exit=0
+
+$ FM_HOME=/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/target-home /bin/bash /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/bin/fm-promote.sh promote-direct-pr --mode direct-PR --yolo off
+promoted promote-direct-pr to ship mode=direct-PR yolo=off (teardown protection restored)
+wrote ship instructions for mode=direct-PR: /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/target-home/data/promote-direct-pr/ship-instructions.md
+next: FM_HOME=/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/target-home bin/fm-send.sh fm-promote-direct-pr "$(cat /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/target-home/data/promote-direct-pr/ship-instructions.md)"
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+●  WATCHER DOWN - SUPERVISION IS OFF
+●  2 task(s) in flight, but no watcher has a fresh beacon (last beat: never, grace 300s).
+●  This read-only session should report the lapse, not repair it.
+●  This is a supervision warning only; the guarded operation WILL still run.
+●  Watcher repair belongs to the session holding the fleet lock; do not drain, arm, or repair from this read-only session.
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+exit=0
+
+$ FM_HOME=/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/target-home /bin/bash /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/bin/fm-brief.sh layout-alpha-local-only alpha --mode local-only
+scaffolded: /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/target-home/data/layout-alpha-local-only/brief.md (ship, mode=local-only; replace {TASK} and {FIRSTMATE_SPEC})
+exit=0
+
+$ FM_HOME=/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/target-home /bin/bash /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/bin/fm-brief.sh layout-beta-local-only beta --mode local-only
+scaffolded: /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/target-home/data/layout-beta-local-only/brief.md (ship, mode=local-only; replace {TASK} and {FIRSTMATE_SPEC})
+exit=0
+
+$ FM_HOME=/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/target-home /bin/bash /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/bin/fm-brief.sh promote-local-only alpha --scout
+scaffolded: /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/target-home/data/promote-local-only/brief.md (scout; replace {TASK} and {FIRSTMATE_SPEC})
+exit=0
+
+$ FM_HOME=/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/target-home /bin/bash /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/bin/fm-promote.sh promote-local-only --mode local-only --yolo off
+promoted promote-local-only to ship mode=local-only yolo=off (teardown protection restored)
+wrote ship instructions for mode=local-only: /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/target-home/data/promote-local-only/ship-instructions.md
+next: FM_HOME=/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/target-home bin/fm-send.sh fm-promote-local-only "$(cat /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/target-home/data/promote-local-only/ship-instructions.md)"
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+●  WATCHER DOWN - SUPERVISION IS OFF
+●  3 task(s) in flight, but no watcher has a fresh beacon (last beat: never, grace 300s).
+●  This read-only session should report the lapse, not repair it.
+●  This is a supervision warning only; the guarded operation WILL still run.
+●  Watcher repair belongs to the session holding the fleet lock; do not drain, arm, or repair from this read-only session.
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+exit=0
+
+$ FM_HOME=/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/target-home /bin/bash /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/bin/fm-brief.sh layout-scout alpha --scout
+scaffolded: /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/target-home/data/layout-scout/brief.md (scout; replace {TASK} and {FIRSTMATE_SPEC})
+exit=0
+
+$ FM_HOME=/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/target-home /bin/bash /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/bin/fm-brief.sh layout-secondmate --secondmate alpha
+scaffolded: /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/target-home/data/layout-secondmate/brief.md (secondmate charter; replace {TASK})
+exit=0
+
+$ FM_HOME=/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/target-home /bin/bash /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/bin/fm-brief.sh layout-secondmate-empty --secondmate --no-projects
+scaffolded: /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24RHXJBZYVXGCB0XAB5GHKV/.pr-layout-live/target-home/data/layout-secondmate-empty/brief.md (secondmate charter; replace {TASK})
+exit=0

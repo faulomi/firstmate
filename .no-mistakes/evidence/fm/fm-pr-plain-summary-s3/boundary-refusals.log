@@ -1,0 +1,11 @@
+$ /bin/bash bin/fm-brief.sh guard-scout alpha --scout --mode direct-PR
+error: --mode applies only to ship briefs; a scout delivers a report and a secondmate charter is not a delivery contract
+exit=1
+
+$ /bin/bash bin/fm-brief.sh guard-secondmate --secondmate alpha --mode no-mistakes
+error: --mode applies only to ship briefs; a scout delivers a report and a secondmate charter is not a delivery contract
+exit=1
+
+$ /bin/bash bin/fm-brief.sh guard-policy alpha --mode no-mistakes-prod-only
+error: no-mistakes-prod-only is a registry policy, not a task mode; classify this task's surface and resolve it to no-mistakes or direct-PR at intake
+exit=1
