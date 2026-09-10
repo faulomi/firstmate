@@ -1,0 +1,3 @@
+warning: /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24ND9JCYHB8CDVT6446T8SC/.test-memory/live-home/data/ship/launch-brief.md records no delivery contract line (scaffolded before ship briefs recorded one); launching on the explicit --mode local-only - confirm its definition of done matches
+notice: ship ships mode=local-only while the standing posture for project is no-mistakes - less rigor than the captain's standing posture; proceed only on a current explicit captain instruction or an intake judgment you can state
+spawned ship harness=codex kind=ship mode=local-only yolo=off window=memory-test:fm-ship worktree=/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M24ND9JCYHB8CDVT6446T8SC/.test-memory/pool/.treehouse/project-baf181/1/project
