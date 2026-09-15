@@ -1,0 +1,24 @@
+
+The default interactive shell is now zsh.
+To update your account to use zsh, please run `chsh -s /bin/zsh`.
+For more details, please visit https://support.apple.com/kb/HT208050.
+bash-3.2$ treehouse get
+🌳 Setting up worktree...
+🌳 Entered worktree at /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M2J9X
+548SFSEAN9F0M3N4AT7/.memory-live/pool/.treehouse/project-8b47e6/4/project. Type
+'exit' to return.
+
+The default interactive shell is now zsh.
+To update your account to use zsh, please run `chsh -s /bin/zsh`.
+For more details, please visit https://support.apple.com/kb/HT208050.
+bash-3.2$ export GOTMPDIR=/tmp/fm-memory-raw-other/gotmp
+bash-3.2$ export FM_TASK_ID=memory-raw-other
+bash-3.2$ env MEMORY_PROBE=1 /usr/bin/printf RAW_NON_CODEX_OK
+RAW_NON_CODEX_OKbash-3.2$
+
+
+
+
+
+
+

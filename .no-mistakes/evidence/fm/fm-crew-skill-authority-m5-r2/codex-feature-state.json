@@ -1,0 +1,54 @@
+{
+  "version": "codex-cli 0.154.0",
+  "probes": [
+    {
+      "case": "personal-default",
+      "command": [
+        "codex",
+        "features",
+        "list"
+      ],
+      "result": "memories                                 stable             true"
+    },
+    {
+      "case": "crew-flags",
+      "command": [
+        "codex",
+        "--model",
+        "gpt-5",
+        "-c",
+        "model_reasoning_effort=\"high\"",
+        "--dangerously-bypass-approvals-and-sandbox",
+        "--disable",
+        "memories",
+        "features",
+        "list"
+      ],
+      "result": "memories                                 stable             false"
+    },
+    {
+      "case": "explicit-conflict",
+      "command": [
+        "codex",
+        "-c",
+        "features.memories=true",
+        "--disable",
+        "memories",
+        "features",
+        "list"
+      ],
+      "result": "memories                                 stable             false"
+    },
+    {
+      "case": "personal-default-after",
+      "command": [
+        "codex",
+        "features",
+        "list"
+      ],
+      "result": "memories                                 stable             true"
+    }
+  ],
+  "config_sha256_before": "76a2197a8745668f63da4bd661fde490027ed8d2ebc7e19ff76f4b73e1e30a06",
+  "config_sha256_after": "76a2197a8745668f63da4bd661fde490027ed8d2ebc7e19ff76f4b73e1e30a06"
+}

@@ -1,0 +1,328 @@
+=== ship ===
+warning: /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M2J9X548SFSEAN9F0M3N4AT7/.memory-live/fm/data/memory-ship/launch-brief.md records no delivery contract line (scaffolded before ship briefs recorded one); launching on the explicit --mode local-only - confirm its definition of done matches
+notice: memory-ship ships mode=local-only while the standing posture for project is no-mistakes - less rigor than the captain's standing posture; proceed only on a current explicit captain instruction or an intake judgment you can state
+spawned memory-ship harness=codex kind=ship mode=local-only yolo=off window=memory-validation:fm-memory-ship worktree=/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M2J9X548SFSEAN9F0M3N4AT7/.memory-live/pool/.treehouse/project-8b47e6/1/project
+
+
+The default interactive shell is now zsh.
+To update your account to use zsh, please run `chsh -s /bin/zsh`.
+For more details, please visit https://support.apple.com/kb/HT208050.
+bash-3.2$ treehouse get
+🌳 Setting up worktree...
+🌳 Entered worktree at /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M2J9X
+548SFSEAN9F0M3N4AT7/.memory-live/pool/.treehouse/project-8b47e6/1/project. Type
+'exit' to return.
+
+The default interactive shell is now zsh.
+To update your account to use zsh, please run `chsh -s /bin/zsh`.
+For more details, please visit https://support.apple.com/kb/HT208050.
+bash-3.2$ export GOTMPDIR=/tmp/fm-memory-ship/gotmp
+bash-3.2$ export FM_TASK_ID=memory-ship
+bash-3.2$ env -u CURSOR_AGENT -u CURSOR_INVOKED_AS -u GEMINI_CLI codex --model '
+gpt-5' -c 'model_reasoning_effort="high"' --dangerously-bypass-approvals-and-san
+dbox --disable memories -c "notify=[\"bash\",\"-c\",\"touch '/Users/jerome/.no-m
+istakes/worktrees/f380a11d9129/01M2J9X548SFSEAN9F0M3N4AT7/.memory-live/fm/state/
+memory-ship.turn-ended'\"]" "$('/Users/jerome/.no-mistakes/worktrees/f380a11d912
+9/01M2J9X548SFSEAN9F0M3N4AT7/bin/fm-operational-input.sh' encode launch-brief <
+'/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M2J9X548SFSEAN9F0M3N4AT7/.m
+emory-live/fm/data/memory-ship/launch-brief.md')"
+  Welcome to Codex, OpenAI's command-line coding agent
+
+  Sign in with ChatGPT to use Codex as part of your paid plan
+  or connect an API key for usage-based billing
+
+> 1. Sign in with ChatGPT
+     Usage included with Plus, Pro, Business, and Enterprise plans
+
+  2. Sign in with Device Code
+     Sign in from another device with a one-time code
+
+  3. Provide your own API key
+     Pay for what you use
+
+  Press enter to continue
+
+
+
+
+
+
+
+
+
+
+=== scout ===
+spawned memory-scout harness=codex kind=scout window=memory-validation:fm-memory-scout worktree=/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M2J9X548SFSEAN9F0M3N4AT7/.memory-live/pool/.treehouse/project-8b47e6/2/project
+
+
+The default interactive shell is now zsh.
+To update your account to use zsh, please run `chsh -s /bin/zsh`.
+For more details, please visit https://support.apple.com/kb/HT208050.
+bash-3.2$ treehouse get
+🌳 Setting up worktree...
+🌳 Entered worktree at /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M2J9X
+548SFSEAN9F0M3N4AT7/.memory-live/pool/.treehouse/project-8b47e6/2/project. Type
+'exit' to return.
+
+The default interactive shell is now zsh.
+To update your account to use zsh, please run `chsh -s /bin/zsh`.
+For more details, please visit https://support.apple.com/kb/HT208050.
+bash-3.2$ export GOTMPDIR=/tmp/fm-memory-scout/gotmp
+bash-3.2$ export FM_TASK_ID=memory-scout
+bash-3.2$ env -u CURSOR_AGENT -u CURSOR_INVOKED_AS -u GEMINI_CLI codex --model '
+gpt-5' -c 'model_reasoning_effort="high"' --dangerously-bypass-approvals-and-san
+dbox --disable memories -c "notify=[\"bash\",\"-c\",\"touch '/Users/jerome/.no-m
+istakes/worktrees/f380a11d9129/01M2J9X548SFSEAN9F0M3N4AT7/.memory-live/fm/state/
+memory-scout.turn-ended'\"]" "$('/Users/jerome/.no-mistakes/worktrees/f380a11d91
+29/01M2J9X548SFSEAN9F0M3N4AT7/bin/fm-operational-input.sh' encode launch-brief <
+ '/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M2J9X548SFSEAN9F0M3N4AT7/.
+memory-live/fm/data/memory-scout/launch-brief.md')"
+  Welcome to Codex, OpenAI's command-line coding agent
+
+  Sign in with ChatGPT to use Codex as part of your paid plan
+  or connect an API key for usage-based billing
+
+> 1. Sign in with ChatGPT
+     Usage included with Plus, Pro, Business, and Enterprise plans
+
+  2. Sign in with Device Code
+     Sign in from another device with a one-time code
+
+  3. Provide your own API key
+     Pay for what you use
+
+  Press enter to continue
+
+
+
+
+
+
+
+
+
+
+=== raw ===
+spawned memory-raw harness=env kind=scout window=memory-validation:fm-memory-raw worktree=/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M2J9X548SFSEAN9F0M3N4AT7/.memory-live/pool/.treehouse/project-8b47e6/3/project
+
+
+The default interactive shell is now zsh.
+To update your account to use zsh, please run `chsh -s /bin/zsh`.
+For more details, please visit https://support.apple.com/kb/HT208050.
+bash-3.2$ treehouse get
+🌳 Setting up worktree...
+🌳 Entered worktree at /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M2J9X
+548SFSEAN9F0M3N4AT7/.memory-live/pool/.treehouse/project-8b47e6/3/project. Type
+'exit' to return.
+
+The default interactive shell is now zsh.
+To update your account to use zsh, please run `chsh -s /bin/zsh`.
+For more details, please visit https://support.apple.com/kb/HT208050.
+bash-3.2$ export GOTMPDIR=/tmp/fm-memory-raw/gotmp
+bash-3.2$ export FM_TASK_ID=memory-raw
+bash-3.2$ env -- MEMORY_PROBE=1 codex features list
+apply_patch_freeform                     removed            false
+apply_patch_preserve_line_endings        under development  false
+apply_patch_streaming_events             under development  false
+apps                                     stable             true
+apps_mcp_path_override                   removed            false
+artifact                                 under development  false
+auth_elicitation                         stable             true
+background_paginated_rollout_migration   under development  false
+bedrock_setup_wizard                     under development  false
+browser_use                              stable             true
+browser_use_external                     stable             true
+browser_use_full_cdp_access              stable             true
+chronicle                                under development  false
+code_mode                                under development  false
+code_mode_buffered_exec                  removed            false
+code_mode_host                           stable             true
+code_mode_interrupt                      under development  false
+code_mode_only                           under development  false
+code_mode_prewarm                        under development  false
+codex_git_commit                         removed            false
+collaboration_modes                      removed            true
+compaction_image_budget                  stable             true
+computer_use                             stable             true
+concurrent_reasoning_summaries           under development  false
+content_item_kinds                       stable             true
+context_management                       under development  false
+current_time_reminder                    under development  false
+cwd_relative_turn_diffs                  under development  false
+default_mode_request_user_input          under development  false
+deferred_executor                        under development  false
+deferred_tool_world_state                under development  false
+elevated_windows_sandbox                 removed            false
+enable_fanout                            removed            false
+enable_mcp_apps                          under development  false
+enable_request_compression               stable             true
+exec_permission_approvals                under development  false
+executed_tool_call_metadata              under development  false
+executor_capability_discovery            under development  false
+experimental_windows_sandbox             removed            false
+external_agent_memory_import             under development  false
+external_migration                       removed            false
+fast_mode                                stable             true
+goals                                    stable             true
+guardian_approval                        stable             true
+guardian_enhanced_node_repl_transcripts  under development  false
+guardian_ext                             under development  false
+guardian_node_repl_transcript_images     under development  false
+guardian_reuse_parent_compaction         under development  false
+guardianv2                               under development  false
+guardianv2.thread_context                under development  false
+hooks                                    stable             true
+image_detail_original                    removed            false
+image_generation                         stable             true
+image_resize_notice                      under development  false
+in_app_browser                           stable             true
+in_app_chat                              stable             true
+in_app_dictation                         stable             true
+in_app_local_automation                  stable             true
+in_app_updates                           stable             true
+item_ids                                 removed            true
+js_repl                                  removed            false
+js_repl_tools_only                       removed            false
+local_thread_store_compression           under development  false
+local_thread_store_shared_compression    removed            false
+mcp_2026_07_28                           under development  false
+mcp_oauth_refresh_coordination           under development  false
+memories                                 stable             true
+mentions_v2                              stable             true
+multi_agent                              stable             true
+multi_agent_mode                         removed            false
+multi_agent_v2                           stable             false
+network_proxy                            experimental       false
+non_prefixed_mcp_tool_names              under development  false
+omit_app_server_notification_media       under development  false
+personality                              stable             true
+plugin_hooks                             removed            false
+plugin_sharing                           stable             true
+plugins                                  stable             true
+powershell_shell_version                 under development  false
+prevent_idle_sleep                       experimental       false
+psp                                      under development  false
+realtime_conversation                    removed            false
+reasoning_effort_override                under development  false
+recommended_plugins                      stable             false
+remote_compaction_v2                     stable             true
+remote_control                           removed            false
+remote_models                            removed            false
+remote_plugin                            stable             true
+request_permissions_tool                 under development  false
+request_rule                             removed            false
+resize_all_images                        removed            true
+respect_system_proxy                     under development  false
+responses_websockets                     removed            false
+responses_websockets_v2                  removed            false
+retain_client_developer_messages         under development  false
+rollout_budget                           under development  false
+runtime_metrics                          under development  false
+search_tool                              removed            false
+secret_auth_storage                      stable             false
+send_async_message                       removed            false
+shell_snapshot                           stable             true
+shell_snapshot_v2                        under development  false
+shell_tool                               stable             true
+shell_zsh_fork                           under development  false
+skill_env_var_dependency_prompt          removed            false
+skill_mcp_dependency_install             stable             true
+skill_search                             stable             true
+skip_host_skill_discovery                under development  false
+sleep_tool                               stable             true
+sqlite                                   removed            true
+standalone_web_search                    under development  false
+steer                                    removed            true
+step_model_switching                     under development  false
+terminal_resize_reflow                   removed            true
+terminal_visualization_instructions      under development  false
+token_budget                             under development  false
+tool_call_mcp_elicitation                stable             true
+tool_search                              removed            false
+tool_search_always_defer_mcp_tools       removed            true
+tool_suggest                             stable             true
+transcript_v2                            under development  false
+tui_app_server                           removed            true
+unavailable_dummy_tools                  removed            false
+unbounded_connection_retries             stable             true
+undo                                     removed            false
+unified_exec                             stable             true
+unified_exec_tty                         stable             true
+unified_exec_zsh_fork                    removed            true
+unified_image_budget                     under development  false
+use_agent_identity                       under development  false
+use_legacy_landlock                      deprecated         false
+use_linux_sandbox_bwrap                  removed            false
+view_image                               stable             true
+web_search_cached                        deprecated         false
+web_search_request                       deprecated         false
+windows_sandbox_service                  under development  false
+workspace_dependencies                   stable             true
+workspace_owner_usage_nudge              removed            false
+worktrees                                experimental       false
+write_stdin_approval                     under development  false
+bash-3.2$
+
+=== raw-other ===
+spawned memory-raw-other harness=env kind=scout window=memory-validation:fm-memory-raw-other worktree=/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M2J9X548SFSEAN9F0M3N4AT7/.memory-live/pool/.treehouse/project-8b47e6/4/project
+
+
+The default interactive shell is now zsh.
+To update your account to use zsh, please run `chsh -s /bin/zsh`.
+For more details, please visit https://support.apple.com/kb/HT208050.
+bash-3.2$ treehouse get
+🌳 Setting up worktree...
+🌳 Entered worktree at /Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M2J9X
+548SFSEAN9F0M3N4AT7/.memory-live/pool/.treehouse/project-8b47e6/4/project. Type
+'exit' to return.
+
+The default interactive shell is now zsh.
+To update your account to use zsh, please run `chsh -s /bin/zsh`.
+For more details, please visit https://support.apple.com/kb/HT208050.
+bash-3.2$ export GOTMPDIR=/tmp/fm-memory-raw-other/gotmp
+bash-3.2$ export FM_TASK_ID=memory-raw-other
+bash-3.2$ env MEMORY_PROBE=1 /usr/bin/printf RAW_NON_CODEX_OK
+RAW_NON_CODEX_OKbash-3.2$
+
+
+
+
+
+
+
+
+=== Actual running process arguments ===
+[
+  {
+    "kind": "ship",
+    "processes": [
+      {
+        "pid": "51042",
+        "command_prefix": "node /opt/homebrew/bin/codex --model gpt-5 -c model_reasoning_effort=\"high\" --dangerously-bypass-approvals-and-sandbox --disable memories -c notify=[\"bash\",\"-c\",\"touch '/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M2J9X548SFSEAN9F0M3N4AT7/.memory-live/fm/state/memory-ship.turn-ended'\"] \\040-c"
+      },
+      {
+        "pid": "51062",
+        "command_prefix": "/opt/homebrew/lib/node_modules/@openai/codex/node_modules/@openai/codex-darwin-arm64/vendor/aarch64-apple-darwin/bin/codex --model gpt-5 -c model_reasoning_effort=\"high\" --dangerously-bypass-approvals-and-sandbox --disable memories -c notify=[\"bash\",\"-c\",\"touch '/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M2J9X548SFSEAN9F0M3N4AT7/.memory-live/fm/state/memory-ship.turn-ended'\"] \\040-c"
+      }
+    ],
+    "ui": "Codex sign-in screen; isolated home has no credentials"
+  },
+  {
+    "kind": "scout",
+    "processes": [
+      {
+        "pid": "59284",
+        "command_prefix": "node /opt/homebrew/bin/codex --model gpt-5 -c model_reasoning_effort=\"high\" --dangerously-bypass-approvals-and-sandbox --disable memories -c notify=[\"bash\",\"-c\",\"touch '/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M2J9X548SFSEAN9F0M3N4AT7/.memory-live/fm/state/memory-scout.turn-ended'\"] \\040-c"
+      },
+      {
+        "pid": "59309",
+        "command_prefix": "/opt/homebrew/lib/node_modules/@openai/codex/node_modules/@openai/codex-darwin-arm64/vendor/aarch64-apple-darwin/bin/codex --model gpt-5 -c model_reasoning_effort=\"high\" --dangerously-bypass-approvals-and-sandbox --disable memories -c notify=[\"bash\",\"-c\",\"touch '/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M2J9X548SFSEAN9F0M3N4AT7/.memory-live/fm/state/memory-scout.turn-ended'\"] \\040-c"
+      }
+    ],
+    "ui": "Codex sign-in screen; isolated home has no credentials"
+  },
+  {
+    "kind": "raw",
+    "feature_output": "memories                                 stable             true"
+  }
+]
