@@ -138,12 +138,7 @@
 #   /updatefirstmate, restart). A bare adapter name (claude|codex|opencode|pi|pi-signed|grok|kimi|cursor|gemini|muse|rovo|omp|agy)
 #   overrides it for this spawn (either kind). A non-flag string containing
 #   whitespace is treated as a RAW launch command - the escape hatch for verifying
-#   new adapters. Raw Codex crewmate/scout commands also receive --disable memories
-#   immediately after the executable; secondmates retain their supplied flags.
-#   Worker raw commands accept literal shell words and env, command, exec, or
-#   nohup prefixes; expansion, compound commands, unsupported indirection, and
-#   Codex --enable/-c/--config overrides are refused before launch.
-#   For pi and pi-signed, fm-spawn resolves the selected executable
+#   new adapters. For pi and pi-signed, fm-spawn resolves the selected executable
 #   name from PATH once, probes that concrete path with --help, and launches the
 #   same path. It adds --tui-mode regular only when that help advertises the flag;
 #   a failed or inconclusive probe omits it so older Pi versions remain launchable.
@@ -1872,112 +1867,19 @@ launch_template() {
   esac
 }
 
-resolve_raw_worker_launch() {
-  local i ch quote='' escaped=0 active=0 word='' index=0 name option offset
-  local -a words=() ends=()
-  case "$LAUNCH" in *$'\n'*|*$'\r'*) return 1 ;; esac
-  for ((i=0; i<${#LAUNCH}; i++)); do
-    ch=${LAUNCH:i:1}
-    if [ "$escaped" -eq 1 ]; then
-      if [ "$quote" = '"' ]; then
-        case "$ch" in '$'|'`'|'"'|'\') ;; *) word+='\' ;; esac
-      fi
-      word+=$ch
-      escaped=0
-    elif [ "$quote" = "'" ]; then
-      if [ "$ch" = "'" ]; then quote=''; else word+=$ch; fi
-    elif [ "$ch" = '\' ]; then
-      escaped=1
-      active=1
-    elif [ "$quote" = '"' ]; then
-      case "$ch" in
-        '"') quote='' ;;
-        '$'|'`') return 1 ;;
-        *) word+=$ch ;;
-      esac
-    else
-      case "$ch" in
-        "'"|'"') quote=$ch; active=1 ;;
-        ' '|$'\t')
-          if [ "$active" -eq 1 ]; then
-            words+=("$word"); ends+=("$i")
-            word=''; active=0
-          fi
-          ;;
-        '#')
-          if [ "$active" -eq 0 ]; then break; fi
-          word+=$ch
-          ;;
-        '$'|'`'|';'|'&'|'|'|'<'|'>'|'('|')'|'{'|'}'|'*'|'?'|'['|'~') return 1 ;;
-        *) word+=$ch; active=1 ;;
-      esac
-    fi
-  done
-  [ -z "$quote" ] && [ "$escaped" -eq 0 ] || return 1
-  if [ "$active" -eq 1 ]; then words+=("$word"); ends+=("$i"); fi
-  while [ "$index" -lt "${#words[@]}" ] && [[ ${words[index]} =~ ^[a-zA-Z_][a-zA-Z_0-9]*= ]]; do
-    index=$((index + 1))
-  done
-  while [ "$index" -lt "${#words[@]}" ]; do
-    name=${words[index]##*/}
-    index=$((index + 1))
-    case "$name" in
-      env)
-        while [ "$index" -lt "${#words[@]}" ]; do
-          option=${words[index]}
-          case "$option" in
-            --) index=$((index + 1)); break ;;
-            -i|--ignore-environment|--unset=*) index=$((index + 1)) ;;
-            -u|--unset)
-              index=$((index + 2))
-              [ "$index" -lt "${#words[@]}" ] || return 1
-              ;;
-            -*) return 1 ;;
-            *)
-              [[ $option =~ ^[a-zA-Z_][a-zA-Z_0-9]*= ]] || break
-              index=$((index + 1))
-              ;;
-          esac
-        done
-        ;;
-      command|exec|nohup)
-        if [ "$name" = command ] && [ "${words[index]:-}" = -p ]; then index=$((index + 1)); fi
-        if [ "${words[index]:-}" = -- ]; then index=$((index + 1)); fi
-        ;;
-      sh|bash|zsh|dash|ksh|fish|csh|tcsh|sudo|doas|su|nice|timeout|xargs|eval|source|.|builtin|time|coproc|if|for|while|until|case|function|!) return 1 ;;
-      python|python[0-9]*|perl|ruby|node|nodejs|bun|deno|busybox|npx|npm|pnpm|yarn|uv|uvx|docker|podman|ssh|watch|setsid|chroot|chrt|taskset|stdbuf|caffeinate|arch|script) return 1 ;;
-      ''|-*) return 1 ;;
-      *)
-        if [ "$name" = codex ]; then
-          offset=${ends[index-1]}
-          for ((i=index; i<${#words[@]}; i++)); do
-            case "${words[i]}" in
-              --) break ;;
-              --enable|--enable=*|-c|-c?*|--config|--config=*) return 1 ;;
-            esac
-          done
-          LAUNCH="${LAUNCH:0:offset} --disable memories${LAUNCH:offset}"
-        fi
-        return 0
-        ;;
+case "$ARG3" in
+*' '*) # raw launch command (unverified-adapter escape hatch)
+  RAW_LAUNCH=1
+  LAUNCH=$ARG3
+  HARNESS=""
+  for word in $LAUNCH; do
+    case "$word" in [A-Za-z_]*=*) continue ;; *)
+      HARNESS=$(basename "$word")
+      break
+      ;;
     esac
   done
-  return 1
-}
-
-case "$ARG3" in
-  *' '*)  # raw launch command (unverified-adapter escape hatch)
-    RAW_LAUNCH=1
-    LAUNCH=$ARG3
-    HARNESS=""
-    for word in $LAUNCH; do
-      case "$word" in [A-Za-z_]*=*) continue ;; *) HARNESS=$(basename "$word"); break ;; esac
-    done
-    if [ "$KIND" != secondmate ] && ! resolve_raw_worker_launch; then
-      echo "error: raw worker launch cannot enforce its memory policy; use a simple executable with env, command, exec, or nohup prefixes, without shell expansion or Codex --enable/-c/--config overrides" >&2
-      exit 1
-    fi
-    ;;
+  ;;
 '')
   # No explicit harness: resolve from config. A secondmate AGENT launches on the
   # secondmate harness (config/secondmate-harness -> config/crew-harness -> own);
@@ -4346,9 +4248,9 @@ agy) LAUNCH=${LAUNCH//__AGYBIN__/"$(shell_quote "$AGY_BIN")"} ;;
 esac
 LAUNCH=${LAUNCH//__WORKTREE__/$sq_worktree}
 case "$HARNESS" in
-  claude|codex|opencode|pi|pi-signed|grok|kimi|gemini|muse|rovo|agy)
-    LAUNCH="env -u CURSOR_AGENT -u CURSOR_INVOKED_AS -u GEMINI_CLI $LAUNCH"
-    ;;
+claude | codex | opencode | pi | pi-signed | grok | kimi | gemini | muse | rovo | agy)
+  LAUNCH="env -u CURSOR_AGENT -u CURSOR_INVOKED_AS -u GEMINI_CLI $LAUNCH"
+  ;;
 esac
 # Crewmate panes are created by a long-lived tmux/herdr daemon that does not
 # inherit firstmate's current environment, so a bare `claude` in the pane falls
