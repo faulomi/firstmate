@@ -1,0 +1,80 @@
+[
+  {
+    "name": "personal default before crew",
+    "command": [
+      "codex",
+      "features",
+      "list"
+    ],
+    "exit": 0,
+    "memory_row": "memories                                 stable             true"
+  },
+  {
+    "name": "ship and scout override",
+    "command": [
+      "codex",
+      "--dangerously-bypass-approvals-and-sandbox",
+      "--disable",
+      "memories",
+      "features",
+      "list"
+    ],
+    "exit": 0,
+    "memory_row": "memories                                 stable             false"
+  },
+  {
+    "name": "profile override",
+    "command": [
+      "codex",
+      "--model",
+      "gpt-5",
+      "-c",
+      "model_reasoning_effort=\"high\"",
+      "--disable",
+      "memories",
+      "features",
+      "list"
+    ],
+    "exit": 0,
+    "memory_row": "memories                                 stable             false"
+  },
+  {
+    "name": "secondmate default",
+    "command": [
+      "codex",
+      "--dangerously-bypass-approvals-and-sandbox",
+      "features",
+      "list"
+    ],
+    "exit": 0,
+    "memory_row": "memories                                 stable             true"
+  },
+  {
+    "name": "personal default after crew",
+    "command": [
+      "codex",
+      "features",
+      "list"
+    ],
+    "exit": 0,
+    "memory_row": "memories                                 stable             true"
+  },
+  {
+    "config_bytes_unchanged": true,
+    "sha256": "76a2197a8745668f63da4bd661fde490027ed8d2ebc7e19ff76f4b73e1e30a06"
+  },
+  {
+    "name": "adversarial explicit memory-on config",
+    "command": [
+      "codex",
+      "-c",
+      "features.memories=true",
+      "--disable",
+      "memories",
+      "features",
+      "list"
+    ],
+    "exit": 0,
+    "memory_row": "memories                                 stable             false"
+  }
+]
