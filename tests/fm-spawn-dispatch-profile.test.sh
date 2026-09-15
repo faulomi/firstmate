@@ -506,6 +506,51 @@ SH
   pass "raw non-Codex commands preserve environment and arguments"
 }
 
+test_raw_pi_paths_without_path_installation() {
+  local base_path rec id kind form raw out status result launch
+  base_path=$(fm_test_base_path_sans "$PATH" pi)
+  for kind in ship scout; do
+    for form in quoted-absolute env-absolute quoted-relative env-relative; do
+      id="raw-pi-$kind-$form"
+      rec=$(make_spawn_case "$id" claude "$id")
+      read_case_record "$rec"
+      rm "$FAKEBIN_DIR/pi"
+      mkdir -p "$CASE_DIR/custom"
+      cat > "$CASE_DIR/custom/pi" <<'SH'
+#!/bin/sh
+printf '<%s>\n' "${FM_PI_HARNESS-unset}" "$@"
+SH
+      chmod +x "$CASE_DIR/custom/pi"
+      case "$form" in
+        quoted-absolute) raw="'$CASE_DIR/custom/pi'" ;;
+        env-absolute) raw="env '$CASE_DIR/custom/pi'" ;;
+        quoted-relative) raw="'../custom/pi'" ;;
+        env-relative) raw="env '../custom/pi'" ;;
+      esac
+      raw="$raw --model gpt-5 -- 'task with spaces'"
+      if PATH="$FAKEBIN_DIR:$base_path" /bin/sh -c 'command -v pi' >/dev/null; then
+        fail "Pi must be absent from the fixture PATH"
+      fi
+      if [ "$kind" = scout ]; then
+        out=$(PATH="$base_path" run_spawn "$HOME_DIR" "$WT_DIR" "$FAKEBIN_DIR" "$LAUNCH_LOG" \
+          "$id" "$PROJ_DIR" --scout "$raw")
+      else
+        out=$(PATH="$base_path" run_ship_spawn "$HOME_DIR" "$WT_DIR" "$FAKEBIN_DIR" "$LAUNCH_LOG" \
+          "$id" "$PROJ_DIR" "$raw")
+      fi
+      status=$?
+      expect_code 0 "$status" "raw Pi $kind $form spawn failed: $out"
+      launch=$(cat "$LAUNCH_LOG")
+      [ "$launch" = "$raw" ] || fail "raw Pi $kind $form launch changed: $launch"
+      result=$(cd "$WT_DIR" && unset FM_PI_HARNESS && PATH="$FAKEBIN_DIR:$base_path" /bin/sh -c "$launch") \
+        || fail "raw Pi $kind $form command failed"
+      [ "$result" = "$(printf '<%s>\n' unset --model gpt-5 -- 'task with spaces')" ] \
+        || fail "raw Pi $kind $form environment or argv changed: $result"
+      pass "raw Pi $kind $form runs its explicit executable without a PATH installation"
+    done
+  done
+}
+
 test_claude_threads_model_and_effort() {
   local rec id out status launch
   id=profile-claude-z2
@@ -1515,6 +1560,7 @@ test_active_dispatch_profile_allows_raw_launch_command
 test_raw_codex_worker_memory
 test_raw_worker_refuses_unresolved_launches
 test_raw_non_codex_preserves_execution
+test_raw_pi_paths_without_path_installation
 test_claude_threads_model_and_effort
 test_codex_threads_model_and_effort
 test_codex_threads_model_and_max_effort

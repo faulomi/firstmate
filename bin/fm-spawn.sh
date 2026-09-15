@@ -1948,8 +1948,7 @@ resolve_raw_worker_launch() {
       python|python[0-9]*|perl|ruby|node|nodejs|bun|deno|busybox|npx|npm|pnpm|yarn|uv|uvx|docker|podman|ssh|watch|setsid|chroot|chrt|taskset|stdbuf|caffeinate|arch|script) return 1 ;;
       ''|-*) return 1 ;;
       *)
-        HARNESS=$name
-        if [ "$HARNESS" = codex ]; then
+        if [ "$name" = codex ]; then
           offset=${ends[index-1]}
           for ((i=index; i<${#words[@]}; i++)); do
             case "${words[i]}" in
@@ -1971,11 +1970,10 @@ case "$ARG3" in
     RAW_LAUNCH=1
     LAUNCH=$ARG3
     HARNESS=""
-    if [ "$KIND" = secondmate ]; then
-      for word in $LAUNCH; do
-        case "$word" in [A-Za-z_]*=*) continue ;; *) HARNESS=$(basename "$word"); break ;; esac
-      done
-    elif ! resolve_raw_worker_launch; then
+    for word in $LAUNCH; do
+      case "$word" in [A-Za-z_]*=*) continue ;; *) HARNESS=$(basename "$word"); break ;; esac
+    done
+    if [ "$KIND" != secondmate ] && ! resolve_raw_worker_launch; then
       echo "error: raw worker launch cannot enforce its memory policy; use a simple executable with env, command, exec, or nohup prefixes, without shell expansion or Codex --enable/-c/--config overrides" >&2
       exit 1
     fi
@@ -4349,9 +4347,6 @@ esac
 LAUNCH=${LAUNCH//__WORKTREE__/$sq_worktree}
 case "$HARNESS" in
   claude|codex|opencode|pi|pi-signed|grok|kimi|gemini|muse|rovo|agy)
-    if [ "$RAW_LAUNCH" -eq 1 ] && [ "$KIND" != secondmate ]; then
-      LAUNCH="/bin/sh -c $(shell_quote "$LAUNCH")"
-    fi
     LAUNCH="env -u CURSOR_AGENT -u CURSOR_INVOKED_AS -u GEMINI_CLI $LAUNCH"
     ;;
 esac
