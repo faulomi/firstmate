@@ -138,7 +138,9 @@
 #   /updatefirstmate, restart). A bare adapter name (claude|codex|opencode|pi|pi-signed|grok|kimi|cursor|gemini|muse|rovo|omp|agy)
 #   overrides it for this spawn (either kind). A non-flag string containing
 #   whitespace is treated as a RAW launch command - the escape hatch for verifying
-#   new adapters. For pi and pi-signed, fm-spawn resolves the selected executable
+#   new adapters. Raw Codex crewmate/scout commands also receive --disable memories
+#   immediately after the executable; secondmates retain their supplied flags.
+#   For pi and pi-signed, fm-spawn resolves the selected executable
 #   name from PATH once, probes that concrete path with --help, and launches the
 #   same path. It adds --tui-mode regular only when that help advertises the flag;
 #   a failed or inconclusive probe omits it so older Pi versions remain launchable.
@@ -1868,18 +1870,21 @@ launch_template() {
 }
 
 case "$ARG3" in
-*' '*) # raw launch command (unverified-adapter escape hatch)
-  RAW_LAUNCH=1
-  LAUNCH=$ARG3
-  HARNESS=""
-  for word in $LAUNCH; do
-    case "$word" in [A-Za-z_]*=*) continue ;; *)
-      HARNESS=$(basename "$word")
-      break
-      ;;
-    esac
-  done
-  ;;
+  *' '*)  # raw launch command (unverified-adapter escape hatch)
+    RAW_LAUNCH=1
+    LAUNCH=$ARG3
+    HARNESS=""
+    raw_tail=$LAUNCH
+    for word in $LAUNCH; do
+      raw_tail=${raw_tail#*"$word"}
+      case "$word" in [A-Za-z_]*=*) continue ;; *) HARNESS=$(basename "$word"); break ;; esac
+    done
+    if [ "$HARNESS" = codex ] && [ "$KIND" != secondmate ]; then
+      # Insert before options, a positional prompt, or `--`, preserving shell
+      # quoting and leading assignments without changing other raw adapters.
+      LAUNCH="${LAUNCH%"$raw_tail"} --disable memories$raw_tail"
+    fi
+    ;;
 '')
   # No explicit harness: resolve from config. A secondmate AGENT launches on the
   # secondmate harness (config/secondmate-harness -> config/crew-harness -> own);

@@ -385,6 +385,44 @@ test_active_dispatch_profile_allows_raw_launch_command() {
   pass "active crew-dispatch profile allows the raw launch-command escape hatch"
 }
 
+test_raw_codex_worker_memory() {
+  local rec id kind out status result expected raw
+  for kind in ship scout secondmate; do
+    id=raw-codex-memory-$kind
+    rec=$(make_spawn_case "$id" codex "$id")
+    read_case_record "$rec"
+    # Execute the emitted shell command, observing the external executable's
+    # argv rather than treating source or a command substring as behavior.
+    cat > "$FAKEBIN_DIR/codex" <<'SH'
+#!/bin/sh
+printf '<%s>\n' "$@"
+SH
+    chmod +x "$FAKEBIN_DIR/codex"
+    raw="codex --model gpt-5 -- 'task with spaces' # operator comment"
+    if [ "$kind" = secondmate ]; then
+      make_seeded_secondmate_home "$CASE_DIR/secondmate-home" "$id"
+      out=$(run_spawn "$HOME_DIR" "$WT_DIR" "$FAKEBIN_DIR" "$LAUNCH_LOG" \
+        "$id" "$CASE_DIR/secondmate-home" --secondmate "$raw")
+    elif [ "$kind" = scout ]; then
+      out=$(run_spawn "$HOME_DIR" "$WT_DIR" "$FAKEBIN_DIR" "$LAUNCH_LOG" \
+        "$id" "$PROJ_DIR" --scout "$raw")
+    else
+      out=$(run_ship_spawn "$HOME_DIR" "$WT_DIR" "$FAKEBIN_DIR" "$LAUNCH_LOG" \
+        "$id" "$PROJ_DIR" "$raw")
+    fi
+    status=$?
+    expect_code 0 "$status" "raw Codex $kind spawn failed: $out"
+    result=$(PATH="$FAKEBIN_DIR:$PATH" /bin/sh -c "$(cat "$LAUNCH_LOG")") \
+      || fail "raw Codex $kind command failed"
+    expected=$(printf '<%s>\n' --model gpt-5 -- 'task with spaces')
+    if [ "$kind" != secondmate ]; then
+      expected=$(printf '<%s>\n' --disable memories)$'\n'"$expected"
+    fi
+    [ "$result" = "$expected" ] || fail "raw Codex $kind argv mismatch: $result"
+    pass "raw Codex $kind preserves arguments and applies its memory policy"
+  done
+}
+
 test_claude_threads_model_and_effort() {
   local rec id out status launch
   id=profile-claude-z2
@@ -1390,6 +1428,7 @@ test_active_dispatch_profile_requires_explicit_harness_for_scout
 test_active_dispatch_profile_allows_explicit_harness
 test_active_dispatch_profile_allows_positional_harness
 test_active_dispatch_profile_allows_raw_launch_command
+test_raw_codex_worker_memory
 test_claude_threads_model_and_effort
 test_codex_threads_model_and_effort
 test_codex_threads_model_and_max_effort
