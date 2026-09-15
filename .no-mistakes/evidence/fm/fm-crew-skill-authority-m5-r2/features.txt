@@ -1,0 +1,17 @@
+memory-on baseline 
+ command: ['/opt/homebrew/bin/codex', 'features', 'list'] 
+ output: memories                                 stable             true
+canonical scout flags 
+ command: ['/opt/homebrew/bin/codex', '--dangerously-bypass-approvals-and-sandbox', '--disable', 'memories', 'features', 'list'] 
+ output: memories                                 stable             false
+canonical ship flags 
+ command: ['/opt/homebrew/bin/codex', '--model', 'gpt-5', '-c', 'model_reasoning_effort="high"', '--dangerously-bypass-approvals-and-sandbox', '--disable', 'memories', 'features', 'list'] 
+ output: memories                                 stable             false
+secondmate defaults 
+ command: ['/opt/homebrew/bin/codex', '--dangerously-bypass-approvals-and-sandbox', 'features', 'list'] 
+ output: memories                                 stable             true
+subsequent personal-style invocation 
+ command: ['/opt/homebrew/bin/codex', 'features', 'list'] 
+ output: memories                                 stable             true
+Isolated config unchanged: 76a2197a8745668f63da4bd661fde490027ed8d2ebc7e19ff76f4b73e1e30a06
+Isolated authentication:  Not logged in exit= 1

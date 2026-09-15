@@ -1,0 +1,56 @@
+
+The default interactive shell is now zsh.
+To update your account to use zsh, please run `chsh -s /bin/zsh`.
+For more details, please visit https://support.apple.com/kb/HT208050.
+bash-3.2$ export GOTMPDIR=/tmp/fm-live-sm/gotmp
+bash-3.2$ FM_ROOT_OVERRIDE= FM_STATE_OVERRIDE= FM_DATA_OVERRIDE= FM_PROJECTS_OVERRIDE= FM_CONFIG_OVERRIDE= FM_PUBLIC_FOLLOWUP_PRIMARY_HOME='
+/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M2J9X548SFSEAN9F0M3N4AT7/.nm-memory-lab/home' FM_HOME='/Users/jerome/.no-mistakes/worktr
+ees/f380a11d9129/01M2J9X548SFSEAN9F0M3N4AT7/.nm-memory-lab/secondmate' FM_TRACE_CONTEXT=off FM_SUPERVISION_MODEL=persistent env -u CURSOR_AG
+ENT -u CURSOR_INVOKED_AS -u GEMINI_CLI codex --dangerously-bypass-approvals-and-sandbox "$('/Users/jerome/.no-mistakes/worktrees/f380a11d912
+9/01M2J9X548SFSEAN9F0M3N4AT7/.nm-memory-lab/runtime/bin/fm-operational-input.sh' encode launch-brief < '/Users/jerome/.no-mistakes/worktrees
+/f380a11d9129/01M2J9X548SFSEAN9F0M3N4AT7/.nm-memory-lab/secondmate/data/charter.md')"
+                                      
+               _,+=+=+=~._            
+            _+*||\*=~:|-|*|*.         
+          _/\|+*+,="`  "*/||+",       
+         ,\/|/_|,_        *||\_*      
+        _.|/`||/\^\         |+\\^     
+        //,   \_\\`\,        /\/_\    
+        ||+ !  \,*|_|\       |*||     
+        *|,,   ,''\/=,       \"|*     
+        ||| | ,` /*,,,;==+~~+/_|\~    
+        ^/|'"/:,/`~|_____||*^^^~|.    
+        \=\, |/|/ / """"*** ||,/^`    
+         \+\*,",           //;/=/     
+          *\"*,*;,      _+|,/*\'      
+            \~"*\+|,;+_";,\*~*        
+              "==+,___^+*;-"          
+                   ````               
+
+  Welcome to Codex, OpenAI's command-line coding agent
+
+  Sign in with ChatGPT to use Codex as part of your paid plan
+  or connect an API key for usage-based billing
+
+> 1. Sign in with ChatGPT
+     Usage included with Plus, Pro, Business, and Enterprise plans
+
+  2. Sign in with Device Code
+     Sign in from another device with a one-time code
+
+  3. Provide your own API key
+     Pay for what you use
+
+  Press enter to continue
+
+
+
+
+
+
+
+
+
+
+
+

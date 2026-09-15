@@ -1,0 +1,58 @@
+[
+  {
+    "window": "fm-live-scout",
+    "native_processes": [
+      {
+        "pid": 72093,
+        "argv_before_brief": "/opt/homebrew/lib/node_modules/@openai/codex/node_modules/@openai/codex-darwin-arm64/vendor/aarch64-apple-darwin/bin/codex --dangerously-bypass-approvals-and-sandbox --disable memories -c notify=[\"bash\",\"-c\",\"touch '/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M2J9X548SFSEAN9F0M3N4AT7/.nm-memory-lab/home/state/live-scout.turn-ended'\"] \\040-c",
+        "memory_disable_present": true
+      }
+    ],
+    "authentication_screen": true
+  },
+  {
+    "window": "fm-live-ship",
+    "native_processes": [
+      {
+        "pid": 72876,
+        "argv_before_brief": "/opt/homebrew/lib/node_modules/@openai/codex/node_modules/@openai/codex-darwin-arm64/vendor/aarch64-apple-darwin/bin/codex --model gpt-5 -c model_reasoning_effort=\"high\" --dangerously-bypass-approvals-and-sandbox --disable memories -c notify=[\"bash\",\"-c\",\"touch '/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M2J9X548SFSEAN9F0M3N4AT7/.nm-memory-lab/home/state/live-ship.turn-ended'\"] \\040-c",
+        "memory_disable_present": true
+      }
+    ],
+    "authentication_screen": true
+  },
+  {
+    "window": "fm-live-sm",
+    "native_processes": [
+      {
+        "pid": 80637,
+        "argv_before_brief": "/opt/homebrew/lib/node_modules/@openai/codex/node_modules/@openai/codex-darwin-arm64/vendor/aarch64-apple-darwin/bin/codex --dangerously-bypass-approvals-and-sandbox \\040-c",
+        "memory_disable_present": false
+      }
+    ],
+    "authentication_screen": true
+  },
+  {
+    "window": "fm-raw-codex",
+    "effective_memory": "memories                                 stable             true"
+  },
+  {
+    "window": "fm-raw-env",
+    "effective_memory": "memories                                 stable             true"
+  },
+  {
+    "window": "fm-raw-other",
+    "output": "RAW_NON_CODEX_PRESERVED"
+  },
+  {
+    "window": "fm-base-scout",
+    "native_processes": [
+      {
+        "pid": 89346,
+        "argv_before_brief": "/opt/homebrew/lib/node_modules/@openai/codex/node_modules/@openai/codex-darwin-arm64/vendor/aarch64-apple-darwin/bin/codex --dangerously-bypass-approvals-and-sandbox -c notify=[\"bash\",\"-c\",\"touch '/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M2J9X548SFSEAN9F0M3N4AT7/.nm-memory-lab/home/state/base-scout.turn-ended'\"] \\040-c",
+        "memory_disable_present": false
+      }
+    ],
+    "authentication_screen": true
+  }
+]

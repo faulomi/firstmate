@@ -1,0 +1,7 @@
+ok - codex ship receives model/effort flags and disables memories
+ok - codex scout receives model/effort flags and disables memories
+ok - codex Luna receives --model and model_reasoning_effort max profile flags
+ok - codex omits max for models without the catalog capability
+ok - active crew-dispatch profile allows the raw launch-command escape hatch
+ok - no --model/--effort records defaults and types the claude launch instructions
+ok - C7 spawn: an explicit --harness starts with clean model/effort defaults
