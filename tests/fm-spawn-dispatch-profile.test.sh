@@ -386,41 +386,124 @@ test_active_dispatch_profile_allows_raw_launch_command() {
 }
 
 test_raw_codex_worker_memory() {
-  local rec id kind out status result expected raw
+  local rec id kind form out status result expected raw executable config
   for kind in ship scout secondmate; do
-    id=raw-codex-memory-$kind
-    rec=$(make_spawn_case "$id" codex "$id")
-    read_case_record "$rec"
-    # Execute the emitted shell command, observing the external executable's
-    # argv rather than treating source or a command substring as behavior.
-    cat > "$FAKEBIN_DIR/codex" <<'SH'
+    for form in bare env quoted absolute relative command exec nohup; do
+      id=raw-codex-memory-$kind-$form
+      rec=$(make_spawn_case "$id" codex "$id")
+      read_case_record "$rec"
+      cat > "$FAKEBIN_DIR/codex" <<'SH'
 #!/bin/sh
 printf '<%s>\n' "$@"
 SH
-    chmod +x "$FAKEBIN_DIR/codex"
-    raw="codex --model gpt-5 -- 'task with spaces' # operator comment"
-    if [ "$kind" = secondmate ]; then
-      make_seeded_secondmate_home "$CASE_DIR/secondmate-home" "$id"
-      out=$(run_spawn "$HOME_DIR" "$WT_DIR" "$FAKEBIN_DIR" "$LAUNCH_LOG" \
-        "$id" "$CASE_DIR/secondmate-home" --secondmate "$raw")
-    elif [ "$kind" = scout ]; then
-      out=$(run_spawn "$HOME_DIR" "$WT_DIR" "$FAKEBIN_DIR" "$LAUNCH_LOG" \
-        "$id" "$PROJ_DIR" --scout "$raw")
-    else
-      out=$(run_ship_spawn "$HOME_DIR" "$WT_DIR" "$FAKEBIN_DIR" "$LAUNCH_LOG" \
-        "$id" "$PROJ_DIR" "$raw")
-    fi
-    status=$?
-    expect_code 0 "$status" "raw Codex $kind spawn failed: $out"
-    result=$(PATH="$FAKEBIN_DIR:$PATH" /bin/sh -c "$(cat "$LAUNCH_LOG")") \
-      || fail "raw Codex $kind command failed"
-    expected=$(printf '<%s>\n' --model gpt-5 -- 'task with spaces')
-    if [ "$kind" != secondmate ]; then
-      expected=$(printf '<%s>\n' --disable memories)$'\n'"$expected"
-    fi
-    [ "$result" = "$expected" ] || fail "raw Codex $kind argv mismatch: $result"
-    pass "raw Codex $kind preserves arguments and applies its memory policy"
+      chmod +x "$FAKEBIN_DIR/codex"
+      case "$form" in
+        bare) executable=codex ;;
+        env) executable="env -u UNUSED_RAW_TEST RAW_TEST='literal value' codex" ;;
+        quoted) executable='"codex"' ;;
+        absolute|relative)
+          mkdir -p "$CASE_DIR/tools with spaces"
+          cp "$FAKEBIN_DIR/codex" "$CASE_DIR/tools with spaces/codex"
+          if [ "$form" = absolute ]; then
+            executable="'$CASE_DIR/tools with spaces/codex'"
+          else
+            executable="'../tools with spaces/codex'"
+          fi
+          ;;
+        command) executable='command -- codex' ;;
+        exec) executable='exec codex' ;;
+        nohup) executable='nohup codex' ;;
+      esac
+      raw="$executable --model gpt-5 -- 'task with spaces' # operator comment"
+      config="$HOME_DIR/user-home/.codex/config.toml"
+      mkdir -p "$(dirname "$config")"
+      printf '[features]\nmemories = true\n' > "$config"
+      if [ "$kind" = secondmate ]; then
+        make_seeded_secondmate_home "$CASE_DIR/secondmate-home" "$id"
+        out=$(run_spawn "$HOME_DIR" "$WT_DIR" "$FAKEBIN_DIR" "$LAUNCH_LOG" \
+          "$id" "$CASE_DIR/secondmate-home" --secondmate "$raw")
+      elif [ "$kind" = scout ]; then
+        out=$(run_spawn "$HOME_DIR" "$WT_DIR" "$FAKEBIN_DIR" "$LAUNCH_LOG" \
+          "$id" "$PROJ_DIR" --scout "$raw")
+      else
+        out=$(run_ship_spawn "$HOME_DIR" "$WT_DIR" "$FAKEBIN_DIR" "$LAUNCH_LOG" \
+          "$id" "$PROJ_DIR" "$raw")
+      fi
+      status=$?
+      expect_code 0 "$status" "raw Codex $kind $form spawn failed: $out"
+      result=$(cd "$WT_DIR" && PATH="$FAKEBIN_DIR:$PATH" /bin/sh -c "$(cat "$LAUNCH_LOG")" </dev/null) \
+        || fail "raw Codex $kind $form command failed"
+      expected=$(printf '<%s>\n' --model gpt-5 -- 'task with spaces')
+      if [ "$kind" != secondmate ]; then
+        expected=$(printf '<%s>\n' --disable memories)$'\n'"$expected"
+      fi
+      [ "$result" = "$expected" ] || fail "raw Codex $kind $form argv mismatch: $result"
+      [ "$(cat "$config")" = $'[features]\nmemories = true' ] || fail "personal config changed"
+      pass "raw Codex $kind $form preserves arguments and applies its memory policy"
+    done
   done
+}
+
+test_raw_worker_refuses_unresolved_launches() {
+  local rec id kind raw out status count=0
+  for kind in ship scout; do
+    for raw in \
+      'env -S "codex --model gpt-5"' \
+      'env -u UNUSED_RAW_TEST' \
+      'command -v codex' \
+      'bash -c "codex --model gpt-5"' \
+      'python3 -c "import os; os.system(\"codex\")"' \
+      'nice codex --model gpt-5' \
+      'codex --enable memories' \
+      'codex -c features.memories=true' \
+      'codex --config=features.memories=true' \
+      'codex -cfeatures.memories=true' \
+      '"codex --model gpt-5' \
+      '"$RAW_EXECUTABLE" --model gpt-5' \
+      'custom-agent --flag; codex --model gpt-5' \
+      'custom-agent --flag && codex --model gpt-5' \
+      'custom-agent --flag $(codex --model gpt-5)' \
+      $'custom-agent --flag # comment\ncodex --model gpt-5'; do
+      count=$((count + 1))
+      id=raw-refused-$kind-$count
+      rec=$(make_spawn_case "$id" codex "$id")
+      read_case_record "$rec"
+      if [ "$kind" = scout ]; then
+        out=$(run_spawn "$HOME_DIR" "$WT_DIR" "$FAKEBIN_DIR" "$LAUNCH_LOG" \
+          "$id" "$PROJ_DIR" --scout "$raw")
+      else
+        out=$(run_ship_spawn "$HOME_DIR" "$WT_DIR" "$FAKEBIN_DIR" "$LAUNCH_LOG" \
+          "$id" "$PROJ_DIR" "$raw")
+      fi
+      status=$?
+      expect_code 1 "$status" "unresolved $kind launch accepted: $raw"
+      assert_contains "$out" 'raw worker launch cannot enforce its memory policy' "missing refusal: $out"
+      [ ! -s "$LAUNCH_LOG" ] || fail "refused raw launch reached the backend: $raw"
+      assert_absent "$HOME_DIR/state/$id.meta" "refused raw launch wrote metadata"
+    done
+  done
+  pass "unresolved raw workers and memory overrides refuse before launch"
+}
+
+test_raw_non_codex_preserves_execution() {
+  local rec id raw out status result
+  id=raw-non-codex
+  rec=$(make_spawn_case "$id" claude "$id")
+  read_case_record "$rec"
+  cat > "$FAKEBIN_DIR/custom-agent" <<'SH'
+#!/bin/sh
+printf '<%s>\n' "$RAW_TEST" "$@"
+SH
+  chmod +x "$FAKEBIN_DIR/custom-agent"
+  raw="RAW_TEST='literal value' command env 'custom-agent' --enable memories -c 'features.memories=true' -- 'literal \$value; & codex'"
+  out=$(run_ship_spawn "$HOME_DIR" "$WT_DIR" "$FAKEBIN_DIR" "$LAUNCH_LOG" \
+    "$id" "$PROJ_DIR" "$raw")
+  status=$?
+  expect_code 0 "$status" "non-Codex raw launch failed: $out"
+  result=$(PATH="$FAKEBIN_DIR:$PATH" /bin/sh -c "$(cat "$LAUNCH_LOG")") || fail "non-Codex execution failed"
+  [ "$result" = "$(printf '<%s>\n' 'literal value' --enable memories -c 'features.memories=true' -- 'literal $value; & codex')" ] \
+    || fail "non-Codex environment or argv changed: $result"
+  pass "raw non-Codex commands preserve environment and arguments"
 }
 
 test_claude_threads_model_and_effort() {
@@ -1044,9 +1127,10 @@ test_launch_environment_allowlist() {
 printf '%s\n' "${FM_TEST_AMBIENT_SENTINEL-unset}" "${FM_TEST_ALLOWED-unset}" \
   "${FM_TEST_EMPTY-unset}" "${FM_TEST_UNSET-unset}" "$HOME" "$PATH" "$TERM" "$TMUX" "$GOTMPDIR"
 SH
+    chmod +x "$probe"
     out=$(FM_TEST_AMBIENT_SENTINEL=synthetic-unrelated \
       run_ship_spawn "$HOME_DIR" "$WT_DIR" "$FAKEBIN_DIR" "$LAUNCH_LOG" \
-      "$id" "$PROJ_DIR" --harness "/bin/sh '$probe'")
+      "$id" "$PROJ_DIR" --harness "'$probe' --probe")
     status=$?
     expect_code 0 "$status" "allowlist=$setting spawn should succeed: $out"
     launch=$(cat "$LAUNCH_LOG")
@@ -1429,6 +1513,8 @@ test_active_dispatch_profile_allows_explicit_harness
 test_active_dispatch_profile_allows_positional_harness
 test_active_dispatch_profile_allows_raw_launch_command
 test_raw_codex_worker_memory
+test_raw_worker_refuses_unresolved_launches
+test_raw_non_codex_preserves_execution
 test_claude_threads_model_and_effort
 test_codex_threads_model_and_effort
 test_codex_threads_model_and_max_effort
