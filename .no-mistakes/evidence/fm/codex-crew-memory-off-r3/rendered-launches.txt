@@ -1,0 +1,20 @@
+--- ship spawn exit=0 ; launch command sent to pane:
+export COMPACT_ADVISER_DISABLE=1; env -u CURSOR_AGENT -u CURSOR_INVOKED_AS -u GEMINI_CLI codex --dangerously-bypass-approvals-and-sandbox --disable hooks --disable memories -c "notify=[\"bash\",\"-c\",\"touch '/private/var/folders/71/gpt_mxqn5b339ydgdzq6w4xw0000gn/T/fm-spawn-dispatch-profile.8wzFX4/live-ship/home/state/live-codex-ship-z9.turn-ended'\"]" "$('/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M32CD18HXKQWFJWA9XGFAM9B/bin/fm-operational-input.sh' encode launch-brief < '/private/var/folders/71/gpt_mxqn5b339ydgdzq6w4xw0000gn/T/fm-spawn-dispatch-profile.8wzFX4/live-ship/home/data/live-codex-ship-z9/launch-brief.md')"
+
+    contains --disable memories: yes
+--- scout spawn exit=0 ; launch command sent to pane:
+export COMPACT_ADVISER_DISABLE=1; env -u CURSOR_AGENT -u CURSOR_INVOKED_AS -u GEMINI_CLI codex --dangerously-bypass-approvals-and-sandbox --disable hooks --disable memories -c "notify=[\"bash\",\"-c\",\"touch '/private/var/folders/71/gpt_mxqn5b339ydgdzq6w4xw0000gn/T/fm-spawn-dispatch-profile.8wzFX4/live-scout/home/state/live-codex-scout-z9.turn-ended'\"]" "$('/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M32CD18HXKQWFJWA9XGFAM9B/bin/fm-operational-input.sh' encode launch-brief < '/private/var/folders/71/gpt_mxqn5b339ydgdzq6w4xw0000gn/T/fm-spawn-dispatch-profile.8wzFX4/live-scout/home/data/live-codex-scout-z9/launch-brief.md')"
+
+    contains --disable memories: yes
+--- secondmate spawn exit=0 ; launch command sent to pane:
+export COMPACT_ADVISER_DISABLE=1; FM_ROOT_OVERRIDE= FM_STATE_OVERRIDE= FM_DATA_OVERRIDE= FM_PROJECTS_OVERRIDE= FM_CONFIG_OVERRIDE= FM_PUBLIC_FOLLOWUP_PRIMARY_HOME='/private/var/folders/71/gpt_mxqn5b339ydgdzq6w4xw0000gn/T/fm-spawn-dispatch-profile.8wzFX4/live-secondmate/home' FM_HOME='/private/var/folders/71/gpt_mxqn5b339ydgdzq6w4xw0000gn/T/fm-spawn-dispatch-profile.8wzFX4/live-secondmate/secondmate-home' FM_TRACE_CONTEXT=off FM_SUPERVISION_MODEL=persistent env -u CURSOR_AGENT -u CURSOR_INVOKED_AS -u GEMINI_CLI codex --dangerously-bypass-approvals-and-sandbox "$('/Users/jerome/.no-mistakes/worktrees/f380a11d9129/01M32CD18HXKQWFJWA9XGFAM9B/bin/fm-operational-input.sh' encode launch-brief < '/private/var/folders/71/gpt_mxqn5b339ydgdzq6w4xw0000gn/T/fm-spawn-dispatch-profile.8wzFX4/live-secondmate/secondmate-home/data/charter.md')"
+
+    contains --disable memories: no
+
+--- real codex-cli 0.155.1: crew flag set, features list (no prompt submitted)
+hooks                                    stable             false
+memories                                 stable             false
+--- real codex, no flags (operator's own config untouched):
+memories                                 stable             true
+--- operator config [features] memories line:
+memories = true
