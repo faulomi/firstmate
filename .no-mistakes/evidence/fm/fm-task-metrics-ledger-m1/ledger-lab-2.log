@@ -1,0 +1,57 @@
+lab session: fm-lab-ledger2-29026-20621
+
+=== S4b ship local-only, agent exits, fm-spawn --relaunch twice on the stopped task -> relaunches=2, attempt 3
+spawn lshipd rc=0
+--- state/lshipd.meta (ledger-relevant fields)
+project=/private/var/folders/71/gpt_mxqn5b339ydgdzq6w4xw0000gn/T/fm-ledger-lab.q42ifc/proj
+harness=sh
+kind=ship
+mode=local-only
+model=opus
+effort=low
+spawned_at=1790066658
+relaunch 1 rc=1
+error: unknown harness 'sh'; pass a raw launch command to use an unverified adapter
+--- state/lshipd.meta after relaunch 1
+harness=sh
+model=opus
+effort=low
+spawn_gen=s1790066658.29243.3364
+spawned_at=1790066658
+relaunch 2 rc=1
+error: unknown harness 'sh'; pass a raw launch command to use an unverified adapter
+--- state/lshipd.meta after relaunch 2
+harness=sh
+model=opus
+effort=low
+spawn_gen=s1790066658.29243.3364
+spawned_at=1790066658
+teardown lshipd rc=0
+teardown: force-killing leaked worktree process(es) for lshipd: 31169
+🌳 Worktree returned to pool.
+teardown lshipd complete (window fm-lab-ledger2-29026-20621:w1:p2, worktree /Users/jerome/.treehouse/proj-609bf0/1/proj)
+Backlog: lshipd just finished (this home keeps no markdown backlog at /private/var/folders/71/gpt_mxqn5b339ydgdzq6w4xw0000gn/T/fm-ledger-lab.q42ifc/home/data/backlog.md). Update /private/var/folders/71/gpt_mxqn5b339ydgdzq6w4xw0000gn/T/fm-ledger-lab.q42ifc/home/data/backlog.md - move lshipd to Done, keep Done to the 10 most recent, then re-scan Queued and dispatch only work whose blockers are gone and date is due.
+--- data/crew-dispatch/task-ledger.md
+<!-- Machine-written by bin/fm-teardown.sh: one row per ship or scout cleanup, read from the task's durable records; "-" means the records did not carry the field. Do not hand-edit rows. -->
+
+| task | date | kind | mode | repo | harness | model | effort | attempt | outcome | wall |
+|---|---|---|---|---|---|---|---|---|---|---|
+| lshipd | 2026-09-22 | ship | local-only | proj | sh | opus | low | 1 | local main | 0h00m |
+
+=== S5 secondmate retirement writes no ledger row
+spawn lsm1 rc=0
+warning: secondmate lsm1 sync skipped before launch: primary default-branch commit cannot be resolved
+spawned lsm1 harness=sh kind=secondmate mode=secondmate yolo=off window=fm-lab-ledger2-29026-20621:w2:p2 worktree=/private/var/folders/71/gpt_mxqn5b339ydgdzq6w4xw0000gn/T/fm-ledger-lab.q42ifc/smhome
+harness=sh
+kind=secondmate
+teardown lsm1 --force rc=0
+WARNING: watcher still down (same stale episode; last beat: never, grace 300s) - full banner already printed this episode.
+teardown lsm1 complete (window fm-lab-ledger2-29026-20621:w2:p2, worktree /private/var/folders/71/gpt_mxqn5b339ydgdzq6w4xw0000gn/T/fm-ledger-lab.q42ifc/smhome)
+ledger lines before=       5 after=       5; lsm1 rows=0
+--- data/crew-dispatch/task-ledger.md
+<!-- Machine-written by bin/fm-teardown.sh: one row per ship or scout cleanup, read from the task's durable records; "-" means the records did not carry the field. Do not hand-edit rows. -->
+
+| task | date | kind | mode | repo | harness | model | effort | attempt | outcome | wall |
+|---|---|---|---|---|---|---|---|---|---|---|
+| lshipd | 2026-09-22 | ship | local-only | proj | sh | opus | low | 1 | local main | 0h00m |
+lab teardown rc=0 session=fm-lab-ledger2-29026-20621

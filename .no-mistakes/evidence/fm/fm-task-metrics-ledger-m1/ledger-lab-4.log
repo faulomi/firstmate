@@ -1,0 +1,47 @@
+lab session: fm-lab-ledger4-52117-6120
+
+=== S4d ship local-only, real claude (haiku) in lab, fm-control relaunch twice -> relaunches=2, attempt 3
+spawn lshipf rc=0
+--- state/lshipf.meta (ledger-relevant fields)
+project=/private/var/folders/71/gpt_mxqn5b339ydgdzq6w4xw0000gn/T/fm-ledger-lab.HBzFjl/proj
+harness=claude
+kind=ship
+mode=local-only
+model=haiku
+effort=low
+spawned_at=1790066728
+fm-control relaunch 1 rc=0
+●  watcher supervision needs Stop-owned automatic recovery; inspect the hook registration and startup status before ending the turn.
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+notice: lshipf ships mode=local-only while the standing posture for proj is no-mistakes - less rigor than the captain's standing posture; proceed only on a current explicit captain instruction or an intake judgment you can state
+relaunched lshipf harness=claude from=claude model=haiku effort=low backend=herdr endpoint=fm-lab-ledger4-52117-6120:w1:p2 worktree=/Users/jerome/.treehouse/proj-3d93e9/1/proj
+--- state/lshipf.meta after relaunch 1
+harness=claude
+model=haiku
+effort=low
+spawn_gen=s1790066760.60811.31467
+relaunches=1
+spawned_at=1790066728
+fm-control relaunch 2 rc=0
+WARNING: watcher still down (same stale episode; last beat: never, grace 300s) - full banner already printed this episode.
+notice: lshipf ships mode=local-only while the standing posture for proj is no-mistakes - less rigor than the captain's standing posture; proceed only on a current explicit captain instruction or an intake judgment you can state
+relaunched lshipf harness=claude from=claude model=haiku effort=low backend=herdr endpoint=fm-lab-ledger4-52117-6120:w1:p2 worktree=/Users/jerome/.treehouse/proj-3d93e9/1/proj
+--- state/lshipf.meta after relaunch 2
+harness=claude
+model=haiku
+effort=low
+spawn_gen=s1790066792.68168.9630
+relaunches=2
+spawned_at=1790066728
+teardown lshipf rc=0
+teardown: force-killing leaked worktree process(es) for lshipf: 53618 70279
+🌳 Worktree returned to pool.
+teardown lshipf complete (window fm-lab-ledger4-52117-6120:w1:p2, worktree /Users/jerome/.treehouse/proj-3d93e9/1/proj)
+Backlog: lshipf just finished (this home keeps no markdown backlog at /private/var/folders/71/gpt_mxqn5b339ydgdzq6w4xw0000gn/T/fm-ledger-lab.HBzFjl/home/data/backlog.md). Update /private/var/folders/71/gpt_mxqn5b339ydgdzq6w4xw0000gn/T/fm-ledger-lab.HBzFjl/home/data/backlog.md - move lshipf to Done, keep Done to the 10 most recent, then re-scan Queued and dispatch only work whose blockers are gone and date is due.
+--- data/crew-dispatch/task-ledger.md
+<!-- Machine-written by bin/fm-teardown.sh: one row per ship or scout cleanup, read from the task's durable records; "-" means the records did not carry the field. Do not hand-edit rows. -->
+
+| task | date | kind | mode | repo | harness | model | effort | attempt | outcome | wall |
+|---|---|---|---|---|---|---|---|---|---|---|
+| lshipf | 2026-09-22 | ship | local-only | proj | claude | haiku | low | 3 | local main | 0h01m |
+lab teardown rc=0 session=fm-lab-ledger4-52117-6120

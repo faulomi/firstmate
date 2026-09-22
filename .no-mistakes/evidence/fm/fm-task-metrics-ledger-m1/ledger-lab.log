@@ -1,0 +1,114 @@
+lab session: fm-lab-ledger-1484-2858
+
+=== S1 ship local-only, model/effort explicit, done line -> row
+spawn lshipa rc=0
+--- state/lshipa.meta (ledger-relevant fields)
+project=/private/var/folders/71/gpt_mxqn5b339ydgdzq6w4xw0000gn/T/fm-ledger-lab.n3Lxty/proj
+harness=sh
+kind=ship
+mode=local-only
+model=opus
+effort=high
+spawned_at=1790066589
+--- data/crew-dispatch/task-ledger.md
+(absent)
+teardown lshipa rc=0
+teardown: force-killing leaked worktree process(es) for lshipa: 2966
+🌳 Worktree returned to pool.
+teardown lshipa complete (window fm-lab-ledger-1484-2858:w1:p2, worktree /Users/jerome/.treehouse/proj-cb56dc/1/proj)
+Backlog: lshipa just finished (this home keeps no markdown backlog at /private/var/folders/71/gpt_mxqn5b339ydgdzq6w4xw0000gn/T/fm-ledger-lab.n3Lxty/home/data/backlog.md). Update /private/var/folders/71/gpt_mxqn5b339ydgdzq6w4xw0000gn/T/fm-ledger-lab.n3Lxty/home/data/backlog.md - move lshipa to Done, keep Done to the 10 most recent, then re-scan Queued and dispatch only work whose blockers are gone and date is due.
+--- data/crew-dispatch/task-ledger.md
+<!-- Machine-written by bin/fm-teardown.sh: one row per ship or scout cleanup, read from the task's durable records; "-" means the records did not carry the field. Do not hand-edit rows. -->
+
+| task | date | kind | mode | repo | harness | model | effort | attempt | outcome | wall |
+|---|---|---|---|---|---|---|---|---|---|---|
+| lshipa | 2026-09-22 | ship | local-only | proj | sh | opus | high | 1 | local main | 0h00m |
+
+=== S2 ship no-mistakes with unlanded work, no done: refused teardown writes no row; forced writes exactly one 'discarded'
+spawn lshipb rc=0
+--- state/lshipb.meta (ledger-relevant fields)
+project=/private/var/folders/71/gpt_mxqn5b339ydgdzq6w4xw0000gn/T/fm-ledger-lab.n3Lxty/proj
+harness=sh
+kind=ship
+mode=no-mistakes
+model=sonnet
+effort=medium
+spawned_at=1790066603
+teardown lshipb rc=1
+REFUSED: worktree /Users/jerome/.treehouse/proj-cb56dc/1/proj has work not on any remote and not landed.
+unpushed commits:
+18f3d37 work
+Push the branch, land its PR, or get the captain's explicit OK to discard, then --force.
+rows for lshipb after refused teardown: 0
+teardown lshipb --force rc=0
+🌳 Worktree returned to pool.
+/private/var/folders/71/gpt_mxqn5b339ydgdzq6w4xw0000gn/T/fm-ledger-lab.n3Lxty/proj: already current
+teardown lshipb complete (window fm-lab-ledger-1484-2858:w2:p2, worktree /Users/jerome/.treehouse/proj-cb56dc/1/proj)
+Backlog: lshipb just finished (this home keeps no markdown backlog at /private/var/folders/71/gpt_mxqn5b339ydgdzq6w4xw0000gn/T/fm-ledger-lab.n3Lxty/home/data/backlog.md). Update /private/var/folders/71/gpt_mxqn5b339ydgdzq6w4xw0000gn/T/fm-ledger-lab.n3Lxty/home/data/backlog.md - move lshipb to Done, keep Done to the 10 most recent, then re-scan Queued and dispatch only work whose blockers are gone and date is due.
+rows for lshipb after forced teardown: 1
+--- data/crew-dispatch/task-ledger.md
+<!-- Machine-written by bin/fm-teardown.sh: one row per ship or scout cleanup, read from the task's durable records; "-" means the records did not carry the field. Do not hand-edit rows. -->
+
+| task | date | kind | mode | repo | harness | model | effort | attempt | outcome | wall |
+|---|---|---|---|---|---|---|---|---|---|---|
+| lshipa | 2026-09-22 | ship | local-only | proj | sh | opus | high | 1 | local main | 0h00m |
+| lshipb | 2026-09-22 | ship | no-mistakes | proj | sh | sonnet | medium | 1 | discarded | 0h00m |
+
+=== S3 scout, default model/effort, report + done -> row with report path
+spawn lscout rc=0
+--- state/lscout.meta (ledger-relevant fields)
+project=/private/var/folders/71/gpt_mxqn5b339ydgdzq6w4xw0000gn/T/fm-ledger-lab.n3Lxty/proj
+harness=sh
+kind=scout
+model=default
+effort=default
+spawned_at=1790066614
+captain-hold complete rc=0
+teardown lscout rc=0
+teardown: force-killing leaked worktree process(es) for lscout: 14565
+🌳 Worktree returned to pool.
+teardown lscout complete (window fm-lab-ledger-1484-2858:w3:p2, worktree /Users/jerome/.treehouse/proj-cb56dc/1/proj)
+Backlog: lscout just finished (this home keeps no markdown backlog at /private/var/folders/71/gpt_mxqn5b339ydgdzq6w4xw0000gn/T/fm-ledger-lab.n3Lxty/home/data/backlog.md). Update /private/var/folders/71/gpt_mxqn5b339ydgdzq6w4xw0000gn/T/fm-ledger-lab.n3Lxty/home/data/backlog.md - move lscout to Done, keep Done to the 10 most recent, then re-scan Queued and dispatch only work whose blockers are gone and date is due.
+--- data/crew-dispatch/task-ledger.md
+<!-- Machine-written by bin/fm-teardown.sh: one row per ship or scout cleanup, read from the task's durable records; "-" means the records did not carry the field. Do not hand-edit rows. -->
+
+| task | date | kind | mode | repo | harness | model | effort | attempt | outcome | wall |
+|---|---|---|---|---|---|---|---|---|---|---|
+| lshipa | 2026-09-22 | ship | local-only | proj | sh | opus | high | 1 | local main | 0h00m |
+| lshipb | 2026-09-22 | ship | no-mistakes | proj | sh | sonnet | medium | 1 | discarded | 0h00m |
+| lscout | 2026-09-22 | scout | - | proj | sh | default | default | 1 | data/lscout/report.md | 0h00m |
+
+=== S4 ship local-only relaunched once via fm-control -> attempt 2
+spawn lshipc rc=0
+--- state/lshipc.meta (ledger-relevant fields)
+project=/private/var/folders/71/gpt_mxqn5b339ydgdzq6w4xw0000gn/T/fm-ledger-lab.n3Lxty/proj
+harness=claude
+kind=ship
+mode=local-only
+model=opus
+effort=low
+spawned_at=1790066627
+relaunch rc=1
+error: task lshipc's composer state is 'unknown', not proven empty; refusing to type the /exit exit command because it could concatenate onto existing text. Clear the composer, then retry 'relaunch'
+error: relaunch of lshipc failed while stopping the old agent, which is still running; its original instructions were restored
+--- state/lshipc.meta after relaunch
+harness=claude
+model=opus
+effort=low
+spawn_gen=s1790066627.20061.30831
+spawned_at=1790066627
+teardown lshipc rc=0
+teardown: force-killing leaked worktree process(es) for lshipc: 21131
+🌳 Worktree returned to pool.
+teardown lshipc complete (window fm-lab-ledger-1484-2858:w4:p2, worktree /Users/jerome/.treehouse/proj-cb56dc/1/proj)
+Backlog: lshipc just finished (this home keeps no markdown backlog at /private/var/folders/71/gpt_mxqn5b339ydgdzq6w4xw0000gn/T/fm-ledger-lab.n3Lxty/home/data/backlog.md). Update /private/var/folders/71/gpt_mxqn5b339ydgdzq6w4xw0000gn/T/fm-ledger-lab.n3Lxty/home/data/backlog.md - move lshipc to Done, keep Done to the 10 most recent, then re-scan Queued and dispatch only work whose blockers are gone and date is due.
+--- data/crew-dispatch/task-ledger.md
+<!-- Machine-written by bin/fm-teardown.sh: one row per ship or scout cleanup, read from the task's durable records; "-" means the records did not carry the field. Do not hand-edit rows. -->
+
+| task | date | kind | mode | repo | harness | model | effort | attempt | outcome | wall |
+|---|---|---|---|---|---|---|---|---|---|---|
+| lshipa | 2026-09-22 | ship | local-only | proj | sh | opus | high | 1 | local main | 0h00m |
+| lshipb | 2026-09-22 | ship | no-mistakes | proj | sh | sonnet | medium | 1 | discarded | 0h00m |
+| lscout | 2026-09-22 | scout | - | proj | sh | default | default | 1 | data/lscout/report.md | 0h00m |
+| lshipc | 2026-09-22 | ship | local-only | proj | claude | opus | low | 1 | local main | 0h00m |
+lab teardown rc=0 session=fm-lab-ledger-1484-2858

@@ -1,0 +1,52 @@
+lab session: fm-lab-ledger3-41042-12012
+
+=== S4c ship local-only, stub claude exits, fm-spawn --relaunch twice -> relaunches=2, attempt 3
+spawn lshipe rc=0
+--- state/lshipe.meta (ledger-relevant fields)
+project=/private/var/folders/71/gpt_mxqn5b339ydgdzq6w4xw0000gn/T/fm-ledger-lab.XfGV1s/proj
+harness=claude
+kind=ship
+mode=local-only
+model=opus
+effort=low
+spawned_at=1790066695
+pane capture:
+❯
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  ⚠ Transcript saving is off — inherited CLAUDE_CODE_CHILD_SESSION marker · restart with CLAUDE_CODE_FORCE_SESSION_PE…
+  Context 0% | 5h 90% left (3h5m) | 7d 76% left (2d15h) | Fable 55% left (2d15h)
+  ⏵⏵ bypass permissions on (shift+tab to cycle)
+relaunch 1 rc=1
+error: task lshipe's endpoint reads 'alive'; a relaunch requires a positively agent-free endpoint (stop the agent first with bin/fm-control.sh lshipe exit)
+--- state/lshipe.meta after relaunch 1
+harness=claude
+model=opus
+effort=low
+spawn_gen=s1790066695.41206.19325
+spawned_at=1790066695
+pane capture:
+❯
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  ⚠ Transcript saving is off — inherited CLAUDE_CODE_CHILD_SESSION marker · restart with CLAUDE_CODE_FORCE_SESSION_PE…
+  Context 3% | Opus 5 | 5h 90% left (3h4m) | 7d 76% left (2d15h) | Fable 55% left (2d15h)
+  ⏵⏵ bypass permissions on (shift+tab to cycle)
+relaunch 2 rc=1
+error: task lshipe's endpoint reads 'alive'; a relaunch requires a positively agent-free endpoint (stop the agent first with bin/fm-control.sh lshipe exit)
+--- state/lshipe.meta after relaunch 2
+harness=claude
+model=opus
+effort=low
+spawn_gen=s1790066695.41206.19325
+spawned_at=1790066695
+teardown lshipe rc=0
+teardown: force-killing leaked worktree process(es) for lshipe: 43162 45774
+🌳 Worktree returned to pool.
+teardown lshipe complete (window fm-lab-ledger3-41042-12012:w1:p2, worktree /Users/jerome/.treehouse/proj-60715f/1/proj)
+Backlog: lshipe just finished (this home keeps no markdown backlog at /private/var/folders/71/gpt_mxqn5b339ydgdzq6w4xw0000gn/T/fm-ledger-lab.XfGV1s/home/data/backlog.md). Update /private/var/folders/71/gpt_mxqn5b339ydgdzq6w4xw0000gn/T/fm-ledger-lab.XfGV1s/home/data/backlog.md - move lshipe to Done, keep Done to the 10 most recent, then re-scan Queued and dispatch only work whose blockers are gone and date is due.
+--- data/crew-dispatch/task-ledger.md
+<!-- Machine-written by bin/fm-teardown.sh: one row per ship or scout cleanup, read from the task's durable records; "-" means the records did not carry the field. Do not hand-edit rows. -->
+
+| task | date | kind | mode | repo | harness | model | effort | attempt | outcome | wall |
+|---|---|---|---|---|---|---|---|---|---|---|
+| lshipe | 2026-09-22 | ship | local-only | proj | claude | opus | low | 1 | local main | 0h00m |
+lab teardown rc=0 session=fm-lab-ledger3-41042-12012
