@@ -487,6 +487,29 @@ test_relaunch_preserves_durable_task_metadata() {
   pass "fm-control relaunch: durable task metadata survives replacement launch publication"
 }
 
+test_relaunch_counts_itself_and_keeps_the_first_spawn_time() {
+  local dir out rc
+  dir=$(new_case relaunch-count rl32)
+  add_ship_task "$dir" rl32 claude
+  printf '%s\n' 'spawned_at=1000' >> "$dir/home/state/rl32.meta"
+  out=$(run_control "$dir" rl32 relaunch --note "first retry"); rc=$?
+  expect_code 0 "$rc" "the first relaunch should succeed"$'\n'"$out"
+  out=$(run_control "$dir" rl32 relaunch --note "second retry"); rc=$?
+  expect_code 0 "$rc" "the second relaunch should succeed"$'\n'"$out"
+  [ "$(meta_field "$dir" rl32 relaunches)" = 2 ] \
+    || fail "two relaunches must be counted, got '$(meta_field "$dir" rl32 relaunches)'"
+  [ "$(meta_field "$dir" rl32 spawned_at)" = 1000 ] \
+    || fail "the first spawn time must survive every relaunch"
+
+  dir=$(new_case relaunch-count-legacy rl33)
+  add_ship_task "$dir" rl33 claude
+  out=$(run_control "$dir" rl33 relaunch --note "legacy retry"); rc=$?
+  expect_code 0 "$rc" "a relaunch of an older record should succeed"$'\n'"$out"
+  [ -z "$(meta_field "$dir" rl33 relaunches)" ] \
+    || fail "a record that never counted its relaunches must not start counting mid-way"
+  pass "fm-control relaunch: a relaunch counts itself and keeps the first spawn time"
+}
+
 test_relaunch_serializes_concurrent_durable_metadata_publication() {
   local dir control_pid link_pid rc i=0 traceparent prepare launch_release waiting ready release
   dir=$(new_case metadata-race rl28)
@@ -2202,6 +2225,7 @@ test_relaunch_refuses_before_exit_when_the_composer_holds_pending_text
 test_relaunch_refuses_before_exit_when_the_composer_state_is_unproven
 test_relaunch_from_linked_home_preserves_recorded_worktree
 test_relaunch_preserves_durable_task_metadata
+test_relaunch_counts_itself_and_keeps_the_first_spawn_time
 test_relaunch_serializes_concurrent_durable_metadata_publication
 test_disabled_relaunch_clears_prior_trace_context
 test_relaunch_appends_the_progress_note_to_the_instructions

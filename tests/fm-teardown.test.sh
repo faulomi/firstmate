@@ -727,6 +727,93 @@ test_teardown_closes_the_backlog_item_itself() {
   pass "teardown closes its own backlog item before reporting success"
 }
 
+# The task ledger (bin/fm-teardown.sh's task_ledger_prepare) is read from the
+# task's own records: meta, status log, and the PR state teardown already knows.
+task_ledger_row() {  # <case-dir>
+  grep -F '| task-x1 |' "$1/data/crew-dispatch/task-ledger.md" 2>/dev/null
+}
+
+test_ship_cleanup_appends_one_ledger_row() {
+  local case_dir row today
+  case_dir=$(make_case ledger-ship)
+  fm_write_meta "$case_dir/state/task-x1.meta" \
+    "window=firstmate:fm-task-x1" "endpoint_task_id=task-x1" \
+    "worktree=$case_dir/wt" "project=$case_dir/project" \
+    "harness=claude" "kind=ship" "mode=no-mistakes" "model=opus" "effort=high" \
+    "spawn_gen=teardown-test-task-x1" "spawned_at=$(( $(date +%s) - 3700 ))" \
+    "relaunches=1" "pr=https://github.com/example/repo/pull/7"
+  printf '%s\n' 'working [at=1]: setup' 'done [at=2]: PR https://github.com/example/repo/pull/7 checks green' \
+    > "$case_dir/state/task-x1.status"
+  : > "$case_dir/state/task-x1.pr-poll-merge-notified"
+  wt_commit "$case_dir" "shippable work"
+  git -C "$case_dir/wt" push -q origin fm/task-x1
+  git -C "$case_dir/project" fetch -q origin
+
+  run_teardown "$case_dir" > "$case_dir/stdout" 2> "$case_dir/stderr" \
+    || fail "ledger ship: teardown failed: $(cat "$case_dir/stderr")"
+  today=$(date -u +%Y-%m-%d)
+  row=$(task_ledger_row "$case_dir")
+  [ "$row" = "| task-x1 | $today | ship | no-mistakes | project | claude | opus | high | 2 | https://github.com/example/repo/pull/7 merged | 1h01m |" ] \
+    || fail "ledger ship: unexpected row: $row"
+  [ "$(grep -c '^| task-x1 ' "$case_dir/data/crew-dispatch/task-ledger.md")" = 1 ] \
+    || fail "ledger ship: expected exactly one row"
+  assert_grep '| task | date | kind | mode | repo | harness | model | effort | attempt | outcome | wall |' \
+    "$case_dir/data/crew-dispatch/task-ledger.md" "ledger ship: the ledger was created without its header"
+  pass "a ship cleanup appends one ledger row read from its records"
+}
+
+test_scout_cleanup_appends_one_ledger_row_with_missing_fields_as_dash() {
+  local case_dir row today
+  case_dir=$(make_case ledger-scout)
+  fm_write_meta "$case_dir/state/task-x1.meta" \
+    "window=firstmate:fm-task-x1" "endpoint_task_id=task-x1" \
+    "worktree=$case_dir/wt" "project=$case_dir/project" \
+    "kind=scout" "spawn_gen=teardown-test-task-x1"
+  printf '%s\n' 'done [at=2]: report written' > "$case_dir/state/task-x1.status"
+  mkdir -p "$case_dir/data/task-x1"
+  printf '%s\n' '# Report' > "$case_dir/data/task-x1/report.md"
+  FM_STATE_OVERRIDE="$case_dir/state" FM_DATA_OVERRIDE="$case_dir/data" \
+    FM_CONFIG_OVERRIDE="$case_dir/config" \
+    "$ROOT/bin/fm-captain-hold.sh" complete task-x1 --none >/dev/null \
+    || fail "ledger scout: could not record the completion gate"
+
+  run_teardown "$case_dir" > "$case_dir/stdout" 2> "$case_dir/stderr" \
+    || fail "ledger scout: teardown failed: $(cat "$case_dir/stderr")"
+  today=$(date -u +%Y-%m-%d)
+  row=$(task_ledger_row "$case_dir")
+  [ "$row" = "| task-x1 | $today | scout | - | project | - | - | - | - | data/task-x1/report.md | - |" ] \
+    || fail "ledger scout: unexpected row: $row"
+  pass "a scout cleanup appends one ledger row, with missing fields written as -"
+}
+
+test_forced_cleanup_ledger_row_reads_discarded() {
+  local case_dir row
+  case_dir=$(make_case ledger-forced)
+  write_meta "$case_dir" no-mistakes ship
+  wt_commit "$case_dir" "unlanded work"
+  run_teardown "$case_dir" --force > "$case_dir/stdout" 2> "$case_dir/stderr" \
+    || fail "ledger forced: teardown failed: $(cat "$case_dir/stderr")"
+  row=$(task_ledger_row "$case_dir")
+  case "$row" in
+    *"| no-mistakes | project | - | - | - | - | discarded | - |") ;;
+    *) fail "ledger forced: unexpected row: $row" ;;
+  esac
+  pass "a forced cleanup records its outcome as discarded"
+}
+
+test_ledger_write_failure_never_fails_the_cleanup() {
+  local case_dir
+  case_dir=$(make_case ledger-unwritable)
+  write_meta "$case_dir" no-mistakes ship
+  : > "$case_dir/data/crew-dispatch"
+  run_teardown "$case_dir" --force > "$case_dir/stdout" 2> "$case_dir/stderr" \
+    || fail "ledger unwritable: a ledger failure failed the cleanup: $(cat "$case_dir/stderr")"
+  assert_absent "$case_dir/state/task-x1.meta" "ledger unwritable: the task record survived"
+  assert_grep 'no ledger row recorded for task-x1' "$case_dir/stderr" \
+    "ledger unwritable: the ledger failure was not reported"
+  pass "a ledger write failure is reported and the cleanup still completes"
+}
+
 test_teardown_manual_backend_leaves_the_backlog_to_the_operator() {
   local case_dir out backlog_path
   case_dir=$(make_case tasks-axi-manual-optout)
@@ -3834,6 +3921,10 @@ EOF
 }
 
 test_local_only_fork_remote_allows
+test_ship_cleanup_appends_one_ledger_row
+test_scout_cleanup_appends_one_ledger_row_with_missing_fields_as_dash
+test_forced_cleanup_ledger_row_reads_discarded
+test_ledger_write_failure_never_fails_the_cleanup
 test_teardown_closes_the_backlog_item_itself
 test_teardown_manual_backend_leaves_the_backlog_to_the_operator
 test_local_only_truly_unpushed_refuses

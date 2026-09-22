@@ -19,6 +19,13 @@
 # record being removed, the intended transition is recorded in
 # state/<id>.backlog-close first, so a process killed between the halves leaves
 # the next session start enough to finish it; a landed close removes that record.
+# Just after that record is removed, a ship or scout cleanup appends one row to
+# data/crew-dispatch/task-ledger.md (task, UTC date, kind, mode, repo, harness,
+# model, effort, attempt, outcome, wall time since the first spawn), read only
+# from the record, its status log, and the PR state this run already learned,
+# with "-" for any field those records do not carry. A secondmate retirement
+# writes no row, and a ledger write failure warns on stderr without failing the
+# cleanup; task_ledger_prepare below owns the field rules.
 # A close that fails is fatal and loud, preserves its pending-close record, and
 # is retried by the next session start. The transition is skipped on a
 # config/backlog-backend=manual home and in a markdown home that keeps no
@@ -1458,6 +1465,7 @@ pr_is_merged() {
   head=${remainder%%$'\t'*}
   resolved_url=${remainder#*$'\t'}
   [ "$head" != "$remainder" ] || return 1
+  [ -z "$PR_URL" ] || TEARDOWN_PR_STATE=$state
   case "$state" in
     MERGED|merged) ;;
     *) return 1 ;;
@@ -1474,6 +1482,7 @@ pr_is_merged() {
   if [ -z "$PR_URL" ]; then
     [ -n "$resolved_url" ] || return 1
     PR_URL=$resolved_url
+    TEARDOWN_PR_STATE=$state
   fi
   return 0
 }
@@ -1534,6 +1543,94 @@ backlog_done_args() {
       fi
       ;;
   esac
+}
+
+# Task ledger: one machine-written row per ship or scout cleanup in
+# data/crew-dispatch/task-ledger.md, read only from this task's durable records.
+# The row is built while the record still exists and appended only after the
+# record is gone, so a refused or retried cleanup never writes it twice. A
+# ledger failure is reported on stderr and never fails the cleanup.
+TASK_LEDGER_ROW=
+TEARDOWN_PR_STATE=
+task_ledger_cell() {
+  local value
+  value=$(printf '%s' "$1" | tr '\n\r|' '  /')
+  printf '%s' "${value:--}"
+}
+
+task_ledger_prepare() {
+  local now spawned_at relaunches attempt wall outcome pr_state project
+  TASK_LEDGER_ROW=
+  case "$KIND" in ship|scout) ;; *) return 0 ;; esac
+  now=$(date +%s)
+  spawned_at=$(fm_meta_get "$META" spawned_at)
+  attempt=
+  wall=
+  case "$spawned_at" in
+    ''|*[!0-9]*) ;;
+    *)
+      relaunches=$(fm_meta_get "$META" relaunches)
+      case "$relaunches" in ''|*[!0-9]*) relaunches=0 ;; esac
+      attempt=$((relaunches + 1))
+      if [ "$now" -ge "$spawned_at" ]; then
+        wall=$(( (now - spawned_at) / 3600 ))h$(printf '%02d' $(( (now - spawned_at) % 3600 / 60 )))m
+      fi
+      ;;
+  esac
+  if [ "$FORCE" = "--force" ]; then
+    outcome=discarded
+  elif ! grep -Eq '^done( \[|:)' "$STATE/$ID.status" 2>/dev/null; then
+    outcome=failed
+  elif [ "$KIND" = scout ]; then
+    outcome="data/$ID/report.md"
+  elif [ "$(fm_meta_get "$META" mode)" = local-only ]; then
+    outcome="local main"
+  elif [ -n "$PR_URL" ]; then
+    pr_state=$(printf '%s' "$TEARDOWN_PR_STATE" | tr '[:upper:]' '[:lower:]')
+    if [ -z "$pr_state" ] && [ -f "$STATE/$ID.pr-poll-merge-notified" ]; then
+      pr_state=merged
+    fi
+    outcome="$PR_URL ${pr_state:--}"
+  fi
+  project=$(fm_meta_get "$META" project)
+  TASK_LEDGER_ROW="| $(task_ledger_cell "$ID")"
+  TASK_LEDGER_ROW="$TASK_LEDGER_ROW | $(task_ledger_cell "$(date -u +%Y-%m-%d)")"
+  TASK_LEDGER_ROW="$TASK_LEDGER_ROW | $(task_ledger_cell "$KIND")"
+  if [ "$KIND" = ship ]; then
+    TASK_LEDGER_ROW="$TASK_LEDGER_ROW | $(task_ledger_cell "$(fm_meta_get "$META" mode)")"
+  else
+    TASK_LEDGER_ROW="$TASK_LEDGER_ROW | -"
+  fi
+  TASK_LEDGER_ROW="$TASK_LEDGER_ROW | $(task_ledger_cell "${project:+${project##*/}}")"
+  TASK_LEDGER_ROW="$TASK_LEDGER_ROW | $(task_ledger_cell "$(fm_meta_get "$META" harness)")"
+  TASK_LEDGER_ROW="$TASK_LEDGER_ROW | $(task_ledger_cell "$(fm_meta_get "$META" model)")"
+  TASK_LEDGER_ROW="$TASK_LEDGER_ROW | $(task_ledger_cell "$(fm_meta_get "$META" effort)")"
+  TASK_LEDGER_ROW="$TASK_LEDGER_ROW | $(task_ledger_cell "$attempt")"
+  TASK_LEDGER_ROW="$TASK_LEDGER_ROW | $(task_ledger_cell "$outcome")"
+  TASK_LEDGER_ROW="$TASK_LEDGER_ROW | $(task_ledger_cell "$wall") |"
+}
+
+task_ledger_append() {
+  local dir ledger tmp
+  [ -n "$TASK_LEDGER_ROW" ] || return 0
+  dir="$DATA/crew-dispatch"
+  ledger="$dir/task-ledger.md"
+  if [ ! -e "$ledger" ]; then
+    mkdir -p "$dir" 2>/dev/null || { echo "warning: task ledger directory $dir could not be created; no ledger row recorded for $ID" >&2; return 0; }
+    tmp="$dir/.task-ledger.md.$$"
+    if printf '%s\n' \
+        '<!-- Machine-written by bin/fm-teardown.sh: one row per ship or scout cleanup, read from the task'"'"'s durable records; "-" means the records did not carry the field. Do not hand-edit rows. -->' \
+        '' \
+        '| task | date | kind | mode | repo | harness | model | effort | attempt | outcome | wall |' \
+        '|---|---|---|---|---|---|---|---|---|---|---|' > "$tmp" 2>/dev/null; then
+      ln "$tmp" "$ledger" 2>/dev/null || true
+    fi
+    rm -f "$tmp" 2>/dev/null || true
+  fi
+  if ! printf '%s\n' "$TASK_LEDGER_ROW" >> "$ledger" 2>/dev/null; then
+    echo "warning: task ledger row for $ID could not be appended to $ledger" >&2
+  fi
+  return 0
 }
 
 # Closing the backlog item is this script's own last act on the record, not a
@@ -3623,6 +3720,7 @@ if [ "$KIND" = secondmate ]; then
   fi
   remove_secondmate_registry_entry "$ID"
 fi
+task_ledger_prepare || TASK_LEDGER_ROW=
 remove_grok_turnend_auth "$STATE" "$ID" || exit 1
 remove_kimi_turnend_auth "$STATE" "$ID" || exit 1
 fm_backend_clear_transition "$BACKEND" "$STATE" "$T" || true
@@ -3698,6 +3796,7 @@ else
 fi
 fm_lock_release "$META_LOCK"
 META_LOCK_HELD=0
+task_ledger_append
 if [ "$KIND" != scout ] && [ "$KIND" != secondmate ] && [ "$MODE" != local-only ]; then
   "$FM_ROOT/bin/fm-fleet-sync.sh" "$PROJ" || true
 fi
