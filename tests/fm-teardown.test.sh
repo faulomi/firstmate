@@ -801,6 +801,26 @@ test_forced_cleanup_ledger_row_reads_discarded() {
   pass "a forced cleanup records its outcome as discarded"
 }
 
+test_correlated_done_line_ledger_row_reads_done() {
+  local case_dir row
+  case_dir=$(make_case ledger-corr-done)
+  write_meta "$case_dir" no-mistakes ship
+  printf '%s\n' 'pr=https://github.com/example/repo/pull/9' >> "$case_dir/state/task-x1.meta"
+  printf '%s\n' 'done corr=0123456789abcdef: PR https://github.com/example/repo/pull/9' \
+    > "$case_dir/state/task-x1.status"
+  wt_commit "$case_dir" "shippable work"
+  git -C "$case_dir/wt" push -q origin fm/task-x1
+  git -C "$case_dir/project" fetch -q origin
+  run_teardown "$case_dir" > "$case_dir/stdout" 2> "$case_dir/stderr" \
+    || fail "ledger corr: teardown failed: $(cat "$case_dir/stderr")"
+  row=$(task_ledger_row "$case_dir")
+  case "$row" in
+    *"| https://github.com/example/repo/pull/9 - | - |") ;;
+    *) fail "ledger corr: a correlated done line was not read as done: $row" ;;
+  esac
+  pass "a correlated done line records the PR outcome, not failed"
+}
+
 test_ledger_write_failure_never_fails_the_cleanup() {
   local case_dir
   case_dir=$(make_case ledger-unwritable)
@@ -3924,6 +3944,7 @@ test_local_only_fork_remote_allows
 test_ship_cleanup_appends_one_ledger_row
 test_scout_cleanup_appends_one_ledger_row_with_missing_fields_as_dash
 test_forced_cleanup_ledger_row_reads_discarded
+test_correlated_done_line_ledger_row_reads_done
 test_ledger_write_failure_never_fails_the_cleanup
 test_teardown_closes_the_backlog_item_itself
 test_teardown_manual_backend_leaves_the_backlog_to_the_operator

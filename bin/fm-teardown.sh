@@ -1558,6 +1558,18 @@ task_ledger_cell() {
   printf '%s' "${value:--}"
 }
 
+# 0 when this task's status log holds a done event, read through the shared
+# status grammar (bin/fm-classify-lib.sh) so correlated done lines count too.
+task_ledger_reached_done() {
+  local line verb
+  [ -f "$STATE/$ID.status" ] || return 1
+  while IFS= read -r line || [ -n "$line" ]; do
+    status_line_verb "$line" verb
+    [ "$verb" = done ] && return 0
+  done < "$STATE/$ID.status"
+  return 1
+}
+
 task_ledger_prepare() {
   local now spawned_at relaunches attempt wall outcome pr_state project
   TASK_LEDGER_ROW=
@@ -1579,7 +1591,7 @@ task_ledger_prepare() {
   esac
   if [ "$FORCE" = "--force" ]; then
     outcome=discarded
-  elif ! grep -Eq '^done( \[|:)' "$STATE/$ID.status" 2>/dev/null; then
+  elif ! task_ledger_reached_done; then
     outcome=failed
   elif [ "$KIND" = scout ]; then
     outcome="data/$ID/report.md"
