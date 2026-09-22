@@ -1565,7 +1565,7 @@ task_ledger_reached_done() {
   [ -f "$STATE/$ID.status" ] || return 1
   while IFS= read -r line || [ -n "$line" ]; do
     status_line_verb "$line" verb
-    [ "$verb" = done ] && return 0
+    [ "$verb" = "done" ] && return 0
   done < "$STATE/$ID.status"
   return 1
 }
